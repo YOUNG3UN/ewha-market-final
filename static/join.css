@@ -1,0 +1,108 @@
+@import url("./reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+
+body {
+    background-color: #FFF2CC;
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    display: flex;
+    margin: 35px;
+    align-items: center;
+}
+
+.header p {
+    font-size: 36px;
+    font-weight: bold;
+    color: #00664F;
+    vertical-align: middle;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+}
+
+.header img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.required,
+.optional {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 150px 20px 150px;
+}
+
+.required-box,
+.optional-box {
+    padding: 15px 20px;
+}
+
+.required p,
+.optional p {
+    background-color: #00664F;
+    color: white;
+    padding: 13px 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.required div,
+.optional div {
+    background-color: white;
+}
+
+.required-box div,
+.optional-box div {
+    font-size: 17px;
+    padding: 5px 0px;
+}
+
+.required-box label,
+.optional-box label {
+    width: 150px;
+    display: inline-block;
+}
+
+
+.required-box input,
+.optional-box input {
+    font-size: 14px;
+}
+
+.caution {
+    font-size: 12px;
+    color: gray;
+    margin-left: 15px;
+}
+
+.duplicate-check {
+    margin-left: 15px;
+}
+
+.submit input {
+    margin-top: 10px;
+    background-color: white;
+    padding: 8px;
+    font-size: 20px;
+    width: 150px;
+    height: 45px;
+    border-radius: 80px;
+    border: 2px solid black;
+}
+
+.submit input:hover {
+    cursor: pointer;
+    background-color: #d9d9d9;
+}
+
+.submit {
+    display: flex;
+    margin: 20px 150px 20px 150px;
+    justify-content: flex-end;
+}

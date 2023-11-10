@@ -1,0 +1,85 @@
+@import url("./reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+
+body {
+    background-color: #FFF2CC;
+    font-family: 'Inter', sans-serif;
+}
+
+
+body::after {
+    content: "";
+    background-image: url("https://s3-alpha-sig.figma.com/img/130e/a961/0ab79992192d64cc57a5d4453e11f8bd?Expires=1699833600&Signature=kuQy-PdBbipIdNFcGUpOzYPsZow50Mm8PSR9N6iXfo~EtWlLqe1Iz195OVBxAjqiEsAqPpD0zQZZJH9OxIT8W8Yc2-dT9GPcmT6uImn4ez0wwwEi4v1W5n03269VAkvrpAxv6iB24hvoApgcmgwPtCPq~7IN2uw76RAefB0I5OFiteQUHSUMPiHbsMHTua8KESOh6FiSgVvqSMj3fNQhPR45ybeBN4Iki681e3FL6xw-CHLnkmJchfDs-UGRFAnpmr7bxGSe-oqiw7KUjJ6GXLccTL6DN2gSNwGi-mTZTVvICzgnnnpdl85VGDw2DvoHRzaYhLvNq6iNA8MYJvptQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+    background-position: left 580px top -300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+
+.title p {
+    color: #00664F;
+    font-size: 75px;
+    font-weight: bold;
+    line-height: normal;
+    padding: 30px 30px;
+}
+
+.login {
+    display: flex;
+}
+
+.loginInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginId,
+.loginPwd {
+    border: none;
+    width: 300px;
+    height: 70px;
+    margin: 15px;
+    padding: 2px 25px 0px 20px;
+    font-size: 20px;
+}
+
+.loginInput input::placeholder {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.loginButton input {
+    background-color: #00664F;
+    border: none;
+    color: white;
+    width: 180px;
+    height: 175px;
+    margin: 15px 15px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.loginButton input:hover {
+    cursor: pointer;
+    background-color: #008e6d;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 30px;
+}
+
+.loginOptions {
+    margin: 10px 15px;
+    font-size: 17px;
+    font-weight: bold;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <link rel="stylesheet" type="text/css" href="../static/review_reg.css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://s3-alpha-sig.figma.com/img/130e/a961/0ab79992192d64cc57a5d4453e11f8bd?Expires=1699833600&Signature=kuQy-PdBbipIdNFcGUpOzYPsZow50Mm8PSR9N6iXfo~EtWlLqe1Iz195OVBxAjqiEsAqPpD0zQZZJH9OxIT8W8Yc2-dT9GPcmT6uImn4ez0wwwEi4v1W5n03269VAkvrpAxv6iB24hvoApgcmgwPtCPq~7IN2uw76RAefB0I5OFiteQUHSUMPiHbsMHTua8KESOh6FiSgVvqSMj3fNQhPR45ybeBN4Iki681e3FL6xw-CHLnkmJchfDs-UGRFAnpmr7bxGSe-oqiw7KUjJ6GXLccTL6DN2gSNwGi-mTZTVvICzgnnnpdl85VGDw2DvoHRzaYhLvNq6iNA8MYJvptQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                alt="">
+            <p>이화 마켓</p>
+        </div>
+        <ul class="nav">
+            <li><a href="index.html">상품 조회</a></li> |
+            <li><a href="review.html">리뷰 조회</a></li> |
+            <li><a href="mp_product.html">My Page</a></li> |
+            <li><a href="login.html">로그인</a></li>
+        </ul>
+
+    </div>
+    <div class="divider"></div>
+
+    <form action="">
+        <div class="info">
+            <input type="text" name="id" placeholder="판매자 ID">
+            <input type="text" name="item" placeholder="품목">
+            <input type="text" name="score" placeholder="별점">
+        </div>
+        <div class="title">
+            <input type="text" class="review_title" name="review_title" placeholder="제목">
+            <label for="file">+</label>
+            <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, image/*">
+        </div>
+        <div class="content">
+            <textarea name="review_content" placeholder="본문"></textarea>
+        </div>
+        <div class="save-button">
+            <button class="temp">임시저장</button>
+            <button type="submit" class="save">저장</button>
+        </div>
+    </form>
+</body>
+
+</html>

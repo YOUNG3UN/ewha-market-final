@@ -1,0 +1,186 @@
+@import url("./reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
+body {
+  background-color: #fff2cc;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 35px;
+  align-items: center;
+  height: 60px;
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.header .logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.header .logo p {
+  font-size: 36px;
+  font-weight: bold;
+  color: #00664f;
+  vertical-align: middle;
+}
+
+.divider {
+  width: 100%;
+  height: 3px;
+  background-color: #b3b3b3;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav li {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+section {
+  margin-left: 140px;
+  margin-top: 50px;
+  float: left;
+  width: 480px;
+  background-color: white;
+  height: 800px;
+  padding-left: 70px;
+  padding-top: 40px;
+  padding-right: 70px;
+}
+
+aside {
+  padding-top: 130px;
+  padding-left: 50px;
+  float: left;
+  display: flex;
+}
+
+.category {
+  font-size: 18px;
+  color: #5a5a5a;
+  font-weight: 200px;
+  padding-bottom: 20px;
+}
+
+.goodsName,
+.goodsScore {
+  font-size: 45px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.goodsDetail {
+  font-size: 18px;
+  color: #5a5a5a;
+  font-weight: 200px;
+}
+
+.reviewDate,
+.reviewerName {
+  display: flex;
+  padding-bottom: 15px;
+  gap: 30px;
+}
+
+.reviewDetailDivider {
+  width: 500px;
+  height: 1px;
+  background: #5a5a5a;
+  margin-top: 10px;
+  margin-left: 0px;
+  background-color: #b3b3b3;
+  position: absolute;
+}
+
+.goodsReview {
+  padding-top: 30px;
+  font-size: 18px;
+  color: #5a5a5a;
+  font-weight: 200px;
+}
+
+.goodsReviewTitle {
+  padding-bottom: 15px;
+}
+
+.moveReview {
+  font-size: 18px;
+  color: #5a5a5a;
+  font-weight: 200px;
+}
+
+.nextReview {
+  padding-top: 120px;
+}
+
+.prevReview {
+  padding-top: 20px;
+}
+
+.nextReview,
+.prevReview {
+  display: flex;
+  gap: 30px;
+  padding-bottom: 20px;
+}
+
+.moveReviewDivider {
+  width: 500px;
+  height: 1px;
+  background: #5a5a5a;
+  margin-left: 0px;
+  background-color: #b3b3b3;
+  position: absolute;
+}
+
+.tempImg {
+  background-color: #e6e6e6;
+  color: #666;
+  font-size: 20px;
+  height: 200px;
+  width: 200px;
+  border: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-left: 37px;
+}
+
+.post_product {
+  font-weight: bold;
+  background-color: white;
+  border: 3px solid #00664f;
+  padding: 15px;
+  border-radius: 50px;
+  position: fixed;
+  bottom: 40px;
+  right: 5%;
+}
+
+.post_product a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
