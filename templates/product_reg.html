@@ -25,20 +25,20 @@
     </div>
     <div class="divider"></div>
 
-    <form action="">
+    <form action="/products_insert" method="post" enctype="multipart/form-data">
         <div class="info">
-            <input type="text" name="item" placeholder="품목">
+            <input type="text" name="category" placeholder="품목">
             <input type="text" name="region" placeholder="지역">
             <input type="text" name="price" placeholder="가격">
-            <input type="text" name="condition" placeholder="상태">
+            <input type="text" name="status" placeholder="상태">
         </div>
         <div class="title">
-            <input type="text" class="item_title" name="item_title" placeholder="제목">
+            <input type="text" class="item_title" name="title" placeholder="제목">
             <label for="file">+</label>
             <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, image/*">
         </div>
         <div class="content">
-            <textarea name="item_content" placeholder="본문"></textarea>
+            <textarea name="content" placeholder="본문"></textarea>
         </div>
         <div class="save-button">
             <button class="temp">임시저장</button>
