@@ -27,6 +27,8 @@
     </ul>
   </div>
   <div class="divider"></div>
+
+{% for product in products %}
   <div class="row">
     <div class="column left">
       <div class="fakeimg" style="width: 400px; height: 400px">상품 사진</div>
@@ -39,10 +41,10 @@
     </div>
     <div class="column middle">
       <div class="titleContainer">
-        <div class="goodsName">상품 이름</div>
+        <div class="goodsName">{{ product.title }}상품 이름</div>
         <div class="goodsDate">X일 전</div>
       </div>
-      <div class="goodsPrice">XX,000 원</div>
+      <div class="goodsPrice">{{ product.price }}XX,000 원</div>
       <div class="goodsDetail">
         <div class="sellerID">
           <div>∙ 판매자ID</div>
@@ -50,22 +52,23 @@
         </div>
         <div class="goodsCondition">
           <div>∙ 상품 상태</div>
-          <div class="goodsinfo">양호</div>
+          <div class="goodsinfo">{{ product.status }}</div>
         </div>
         <div class="goodsType">
           <div>∙ 품목</div>
-          <div class="goodsinfo">(상품 종류 ex.전자제품)</div>
+          <div class="goodsinfo">{{ product.category }}</div>
         </div>
         <div class="goodsArea">
           <div>∙ 판매 지역</div>
-          <div class="goodsinfo">XX시 XX동</div>
+          <div class="goodsinfo">{{ product.region }}</div>
         </div>
       </div>
       <div class="goodsExplain">
         <div class="goodsExplainTitle">상품 설명</div>
-        <div>(판매자가 작성한 상품에 대한 상세 정보)</div>
+        <div>{{ product.content }}</div>
       </div>
     </div>
+{% endblock section %}
     <div class="goodsDetailDivider"></div>
     <div class="column right">
       <div class="recentGoods">
