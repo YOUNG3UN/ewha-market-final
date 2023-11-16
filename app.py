@@ -40,8 +40,13 @@ def login_user():
         session['id']=id_
         return render_template("index.html") # return redirect(url_for('view_list'))
     else:
-        flash("Wrong ID or PW!")
-        return render_template("index.html") # return redirect(url_for('view_list'))
+        flash("잘못된 아이디/비밀번호 입니다!")
+        return render_template("login.html")
+
+@application.route("/logout")
+def logout_user():
+    session.clear()
+    return render_template("index.html") # return redirect(url_for('view_list'))
 
 @application.route("/join")
 def join():
@@ -55,7 +60,7 @@ def register_user():
     if DB.insert_user(data,pw_hash):
         return render_template("login.html")
     else:
-        flash("user id already exist!")
+        flash("이미 존재하는 아이디입니다!")
         return render_template("join.html")
 
 
