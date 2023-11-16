@@ -13,7 +13,12 @@
         <p>이화마켓</p>
     </div>
     <div>
-        <form method="POST" action="">
+        {% with mesg = get_flashed_messages() %}
+        {% if mesg !=[] %}
+            <script>alert("{{ mesg[0] }}")</script>
+        {% endif %}
+        {% endwith %}  
+        <form method="post" action="/login_confirm">
             <div class="loginBox">
                 <div class="login">
                     <div class="loginInput">

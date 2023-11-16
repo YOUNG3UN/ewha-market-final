@@ -31,6 +31,18 @@ def insert_products():
 def login():
     return render_template("login.html")
 
+@application.route("/login_confirm", methods=['POST'])
+def login_user():
+    id_=request.form['id']
+    pw=request.form['password']
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    if DB.find_user(id_,pw_hash):
+        session['id']=id_
+        return render_template("index.html") # return redirect(url_for('view_list'))
+    else:
+        flash("Wrong ID or PW!")
+        return render_template("index.html") # return redirect(url_for('view_list'))
+
 @application.route("/join")
 def join():
     return render_template("join.html")
