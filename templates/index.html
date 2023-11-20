@@ -36,99 +36,28 @@
     </div>
 
     <div class="products">
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product1.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>이화그린 학잠</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 10개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product2.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>로지텍 블루투스 키보드</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 25개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product3.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>MLB 뉴욕양키스 모자</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 5개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product3.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>MLB 뉴욕양키스 모자</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 5개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product2.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>로지텍 블루투스 키보드</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 25개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product-box">
-            <a href="product_detail.html">
-                <img class="product-image" src="../static/image/product1.jpg" alt="상품 1">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>이화그린 학잠 6</h3>
-                    </div>
-                    <div class="product-reviewnum">
-                        판매자 리뷰 10개
-                        <img src="../static/image/heart1.png" alt="좋아요">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <span class="post_product">
-            <a href="/products_insert">+ 상품 등록</a>
-        </span>
+        {% if total > 0 %}
+        <p>등록 상품 개수 : {{total}}개</p>
+        <table>
+            <tr>
+            {% for key, value in datas %}
+            <td><img class="product-image" src="static/image/{{value.img_path}}"></td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for key, value in datas %}
+            <td>{{value['title']}}</td>
+            {% endfor %}
+            </tr>
+        </table>
+        {% else %}
+        <p>등록된 상품이 없습니다.</p>
+        {% endif %}
+    </div>
+            
+    <span class="post_product">
+        <a href="/products_insert">+ 상품 등록</a>
+    </span>
 
 </body>
 
