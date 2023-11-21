@@ -10,10 +10,6 @@ class DBhandler:
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
 
-    def get_products(self):
-        product = self.db.child("product").get().val()
-        return product
-
     def insert_product(self, data, img_path):
         product_info = {
             "category": data['category'],
@@ -55,3 +51,17 @@ class DBhandler:
                 if value['id'] == id_string:
                     return False
             return True
+
+    def get_products(self):
+        products = self.db.child("product").get().val()
+        return products
+
+    def get_item_byname(self, name):
+        items = self.db.child("product").get()
+        target_value=""
+        for res in items.each():
+            key_value = res.key()
+            
+            if key_value == name:
+                target_value=res.val()
+        return target_value

@@ -11,8 +11,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="https://s3-alpha-sig.figma.com/img/130e/a961/0ab79992192d64cc57a5d4453e11f8bd?Expires=1699833600&Signature=kuQy-PdBbipIdNFcGUpOzYPsZow50Mm8PSR9N6iXfo~EtWlLqe1Iz195OVBxAjqiEsAqPpD0zQZZJH9OxIT8W8Yc2-dT9GPcmT6uImn4ez0wwwEi4v1W5n03269VAkvrpAxv6iB24hvoApgcmgwPtCPq~7IN2uw76RAefB0I5OFiteQUHSUMPiHbsMHTua8KESOh6FiSgVvqSMj3fNQhPR45ybeBN4Iki681e3FL6xw-CHLnkmJchfDs-UGRFAnpmr7bxGSe-oqiw7KUjJ6GXLccTL6DN2gSNwGi-mTZTVvICzgnnnpdl85VGDw2DvoHRzaYhLvNq6iNA8MYJvptQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
-                alt="">
+      <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
             <p>이화 마켓</p>
         </div>
         <ul class="nav">
@@ -34,30 +33,32 @@
             <option value="인기순">인기순</option>
         </select>
     </div>
-
+    
     <div class="products">
-        {% if total > 0 %}
-        <p>등록 상품 개수 : {{total}}개</p>
-        <table>
-            <tr>
-            {% for key, value in datas %}
-            <td><img class="product-image" src="static/image/{{value.img_path}}"></td>
-            {% endfor %}
-            </tr>
-            <tr>
-            {% for key, value in datas %}
-            <td>{{value['title']}}</td>
-            {% endfor %}
-            </tr>
-        </table>
-        {% else %}
-        <p>등록된 상품이 없습니다.</p>
-        {% endif %}
+    
+        {% for key, value in products %}
+        <div class="product-box">
+            <a onclick="location.href='/products/{{key}}';">
+                <img class="product-image" src="static/image/{{value.img_path}}">
+                <div class="product-info">
+                    <div class="product-name">
+                        <h3>{{value['title']}}</h3>
+                    </div>
+                    <img src="../static/image/heart1.png" alt="좋아요">
+                    <!-- <div class="product-reviewnum">
+                        판매자 리뷰 10개
+                        <img src="../static/image/heart1.png" alt="좋아요">
+                    </div> -->
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+        
     </div>
-            
-    <span class="post_product">
-        <a href="/products_insert">+ 상품 등록</a>
-    </span>
+
+        <span class="post_product">
+            <a href="/products_insert">+ 상품 등록</a>
+        </span>
 
 </body>
 

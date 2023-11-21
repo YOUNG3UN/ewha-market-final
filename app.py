@@ -13,29 +13,18 @@ def hello():
     #return render_template("index.html")
     return redirect(url_for('view_list'))
 
-@application.route("/home")
+@application.route("/home", methods=['GET'])
 def view_list():
-    per_page = 6
-    per_row = 3
-    row_count = int(per_page / per_row)
-
-    data = DB.get_products()
-    # product_key = next(iter(data))
-    tot_count = len(data)
-
-    for i in range(row_count):
-        if (i == row_count-1) and (tot_count % per_row != 0):
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
-        else:
-            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    products = DB.get_products()
 
     return render_template(
         "index.html",
-        datas=data.items(),
-        row1=locals()['data_0'].items(),
-        row2=locals()['data_1'].items(),
-        total=tot_count)
+        products=products.items())
 
+@application.route('/products/<key>')
+def product_detail(key):
+    product = DB.get_item_byname(str(key))
+    return render_template('product_detail.html', product=product)
 
 @application.route("/products_insert", methods=['POST', 'GET'])
 def insert_products():
