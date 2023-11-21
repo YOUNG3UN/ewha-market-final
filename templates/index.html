@@ -1,76 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>이화 마켓</title>
     <link rel="stylesheet" href="../static/index.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="header">
-        <div class="logo">
-            <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-            <p>이화 마켓</p>
-        </div>
-        <ul class="nav">
-            <li><a href="/home">상품 조회</a></li> |
-            <li><a href="/review">리뷰 조회</a></li> |
-            <li><a href="/mp_product">My Page</a></li> |
-            <li><a href="/login">로그인</a></li>
-        </ul>
+      <div class="logo">
+        <img
+          src="https://s3-alpha-sig.figma.com/img/130e/a961/0ab79992192d64cc57a5d4453e11f8bd?Expires=1699833600&Signature=kuQy-PdBbipIdNFcGUpOzYPsZow50Mm8PSR9N6iXfo~EtWlLqe1Iz195OVBxAjqiEsAqPpD0zQZZJH9OxIT8W8Yc2-dT9GPcmT6uImn4ez0wwwEi4v1W5n03269VAkvrpAxv6iB24hvoApgcmgwPtCPq~7IN2uw76RAefB0I5OFiteQUHSUMPiHbsMHTua8KESOh6FiSgVvqSMj3fNQhPR45ybeBN4Iki681e3FL6xw-CHLnkmJchfDs-UGRFAnpmr7bxGSe-oqiw7KUjJ6GXLccTL6DN2gSNwGi-mTZTVvICzgnnnpdl85VGDw2DvoHRzaYhLvNq6iNA8MYJvptQA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+          alt=""
+        />
+        <p>이화 마켓</p>
+      </div>
+      <ul class="nav">
+        <li><a href="/home">상품 조회</a></li>
+        |
+        <li><a href="/review">리뷰 조회</a></li>
+        |
+        <li><a href="/mp_product">My Page</a></li>
+        | {% if session['id'] %}
+        <li>
+          <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+        </li>
+        {% else %}
+        <li><a href="/login">로그인</a></li>
+        {% endif %}
+      </ul>
     </div>
 
     <div class="banner">
-        <h2>이화 마켓에서 원하는 상품을 찾아보세요!</h2>
+      <h2>이화 마켓에서 원하는 상품을 찾아보세요!</h2>
     </div>
 
     <div class="dropdown">
-        <select>
-            <option value="최신순">최신순</option>
-            <option value="가격순">가격순</option>
-            <option value="인기순">인기순</option>
-        </select>
+      <select>
+        <option value="최신순">최신순</option>
+        <option value="가격순">가격순</option>
+        <option value="인기순">인기순</option>
+      </select>
     </div>
 
     {% if total > 0 %}
     <div class="products">
-        {% for key, value in products %}
-        <div class="product-box">
-            <a onclick="location.href='/products/{{key}}';">
-                <img class="product-image" src="static/image/{{value.img_path}}">
-                <div class="product-info">
-                    <div class="product-name">
-                        <h3>{{value['title']}}</h3>
-                    </div>
-                    <img src="../static/image/heart1.png" alt="좋아요">
-                    <!-- <div class="product-reviewnum">
+      <div class="product-box">
+        <a onclick="location.href='/products/{{key}}';">
+          <img class="product-image" src="static/image/{{value.img_path}}" />
+          <div class="product-info">
+            <div class="product-name">
+              <h3>{{value['title']}}</h3>
+            </div>
+            <img src="../static/image/heart1.png" alt="좋아요" />
+            <!-- <div class="product-reviewnum">
                         판매자 리뷰 10개
                         <img src="../static/image/heart1.png" alt="좋아요">
-                    </div> -->
-                </div>
-            </a>
-        </div>
-        {% endfor %}
+                    </div>-->
+          </div>
+        </a>
+      </div>
+      {% endfor %}
     </div>
     <div class="pagination">
-        <ul>
-            <li>
-                {% for i in range(page_count) %}
-                <a href="{{url_for('view_list', page=i)}}" color="black">{{i}}</a>
-                {% endfor %}
-            </li>
-        </ul>
+      <ul>
+        <li>
+          {% for i in range(page_count) %}
+          <a href="{{url_for('view_list', page=i)}}" color="black">{{i}}</a>
+          {% endfor %}
+        </li>
+      </ul>
     </div>
     {% else %}
-    <p> 등록된 상품이 없습니다. </p>
+    <p>등록된 상품이 없습니다.</p>
     {% endif %}
 
     <span class="post_product">
-        <a href="/products_insert">+ 상품 등록</a>
+      <a href="/products_insert">+ 상품 등록</a>
     </span>
-
-</body>
-
+  </body>
 </html>
