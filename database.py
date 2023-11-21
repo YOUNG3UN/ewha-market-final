@@ -3,15 +3,15 @@ import json
 
 class DBhandler:
 
-    def __init__(self ):
+    def __init__(self):
         with open('./authentication/firebase_auth.json') as f:
-            config=json.load(f)
-            
+            config = json.load(f)
+
         firebase = pyrebase.initialize_app(config)
         self.db = firebase.database()
-        
+
     def insert_product(self, data, img_path):
-        product_info ={
+        product_info = {
             "category": data['category'],
             "region": data['region'],
             "price": data['price'],
@@ -20,7 +20,7 @@ class DBhandler:
             "content": data['content'],
             "img_path": img_path
         }
-    
+
         self.db.child("product").push(product_info)
         return True
 
@@ -41,9 +41,9 @@ class DBhandler:
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
-        
-        print("users###",users.val())
-        if str(users.val()) == "None": # first registration
+
+        print("users###", users.val())
+        if str(users.val()) == "None":
             return True
         else:
             for res in users.each():
@@ -61,3 +61,17 @@ class DBhandler:
                 return True
         return False
     
+
+    def get_products(self):
+        products = self.db.child("product").get().val()
+        return products
+
+    def get_item_byname(self, name):
+        items = self.db.child("product").get()
+        target_value=""
+        for res in items.each():
+            key_value = res.key()
+            
+            if key_value == name:
+                target_value=res.val()
+        return target_value

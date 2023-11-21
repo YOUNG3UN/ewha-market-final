@@ -164,7 +164,7 @@ body {
 .goodsArea {
   display: flex;
   padding-bottom: 15px;
-  gap: 40px;
+  gap: 30px;
 }
 
 .goodsType {
@@ -172,18 +172,12 @@ body {
 }
 
 .goodsDetailDivider {
-  width: 28%;
   height: 1px;
-  background: #5a5a5a;
-  margin-top: 370px;
-  margin-left: 522px;
   background-color: #b3b3b3;
-  position: absolute;
-  left: calc(90px);
 }
 
 .goodsExplain {
-  padding-top: 30px;
+  padding-top: 15px;
   font-size: 18px;
   color: #5a5a5a;
   font-weight: 200px;
@@ -225,4 +219,8 @@ body {
   justify-content: center;
   margin-bottom: 15px;
   margin-left: 37px;
+}
+
+.goodsinfo{
+    color: black;
 }
