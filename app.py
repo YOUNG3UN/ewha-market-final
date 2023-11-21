@@ -15,11 +15,21 @@ def hello():
 
 @application.route("/home", methods=['GET'])
 def view_list():
+    page = request.args.get("page", 0, type=int)
+    per_page = 6 # 페이지당 상품 개수
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
     products = DB.get_products()
+    item_counts = len(products)
+    products = dict(list(products.items())[start_idx:end_idx])
 
     return render_template(
         "index.html",
-        products=products.items())
+        products = products.items(),
+        limit = per_page,
+        page = page,
+        page_count = int((item_counts / per_page) + 1),
+        total = item_counts)
 
 @application.route('/products/<key>')
 def product_detail(key):
@@ -57,6 +67,29 @@ def register_user():
         flash("user id already exist!")
         return render_template("join.html")
 
+@application.route("/review")
+def review():
+    return render_template("review.html")
+
+@application.route("/review_reg")
+def review_reg():
+    return render_template("review_reg.html")
+
+@application.route("/review_detail")
+def review_detail():
+    return render_template("review_detail.html")
+
+@application.route("/mp_product")
+def mp_product():
+    return render_template("mp_product.html")
+
+@application.route("/mp_review")
+def mp_review():
+    return render_template("mp_review.html")
+
+@application.route("/mp_wishlist")
+def mp_wishlist():
+    return render_template("mp_wishlist.html")
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0')
