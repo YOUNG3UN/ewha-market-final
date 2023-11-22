@@ -59,7 +59,8 @@ def login_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.find_user(id_,pw_hash):
         session['id']=id_
-        return render_template("index.html") # return redirect(url_for('view_list'))
+        # return render_template("index.html") 
+        return redirect(url_for('view_list'))
     else:
         flash("잘못된 아이디/비밀번호 입니다!")
         return render_template("login.html")
@@ -67,7 +68,8 @@ def login_user():
 @application.route("/logout")
 def logout_user():
     session.clear()
-    return render_template("index.html") # return redirect(url_for('view_list'))
+    # return render_template("index.html")
+    return redirect(url_for('view_list'))
 
 @application.route("/join")
 def join():
