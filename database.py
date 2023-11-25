@@ -24,13 +24,26 @@ class DBhandler:
         self.db.child("product").push(product_info)
         return True
 
+    def insert_review(self, data, img_path):
+        review_info = {
+             "sellerID": data['sellerID'],
+             "category": data['category'],
+             "rate": data['rate'],
+             "title": data['title'],
+             "content": data['content'],
+             "img_path": img_path
+        }
+
+        self.db.child("review").push(review_info)
+        return True
+
     def insert_user(self, data, pw):
-        user_info ={
+        user_info = {
             "id": data['username'],
             "pw": pw,
             "email": data['email'],
             "phone": data['phone'],
-            "birthdate": data['birthdate'] 
+            "birthdate": data['birthdate']
         }
         if self.user_duplicate_check(str(data['username'])):
             self.db.child("user").push(user_info)

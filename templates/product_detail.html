@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 세부 화면</title>
   <link rel="stylesheet" type="text/css" href="../static/product_detail.css" />
+  <script>
+      function redirectToReview(url) {
+        window.location.href = url;
+      }
+  </script>
 </head>
 
 <body>
@@ -34,7 +39,10 @@
         <button class="likeBtn">
           <span class="heart-icon">♥</span> 좋아요
         </button>
-        <button class="buyBtn">구매하기</button>
+        <button class="reviewBtn"
+                onclick="redirectToReview('{{ url_for('reg_review', category=product.category) }}')">
+            리뷰 작성하기
+        </button>
       </div>
     </div>
     <div class="column middle">

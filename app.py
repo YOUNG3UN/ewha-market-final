@@ -48,6 +48,28 @@ def insert_products():
         return redirect(url_for('hello'))
     return render_template("product_reg.html")
 
+@application.route("/review")
+def view_review():
+    return render_template("review.html")
+
+@application.route("/reg_review", methods=['GET', 'POST'])
+def reg_review():
+    if request.method == 'GET':
+        category = request.args.get('category')
+        return render_template("review_reg.html", category=category)
+    elif request.method == 'POST':
+        image_file = request.files["file"]
+        image_file.save("static/image/{}".format(image_file.filename))
+        data = request.form
+
+        DB.insert_review(data, image_file.filename)
+        
+        return redirect(url_for('hello'))
+
+@application.route("/review_detail")
+def review_detail():
+    return render_template("review_detail.html")
+
 @application.route("/login")
 def login():
     return render_template("login.html")
@@ -85,18 +107,6 @@ def register_user():
     else:
         flash("이미 존재하는 아이디입니다!")
         return render_template("join.html")
-
-@application.route("/review")
-def review():
-    return render_template("review.html")
-
-@application.route("/review_reg")
-def review_reg():
-    return render_template("review_reg.html")
-
-@application.route("/review_detail")
-def review_detail():
-    return render_template("review_detail.html")
 
 @application.route("/mp_product")
 def mp_product():
