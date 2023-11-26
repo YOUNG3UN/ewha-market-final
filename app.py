@@ -50,7 +50,21 @@ def insert_products():
 
 @application.route("/review")
 def view_review():
-    return render_template("review.html")
+    page = request.args.get("page", 0, type=int)
+    per_page = 6 # 페이지당 상품 개수
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+    reviews = DB.get_reviews()
+    item_counts = len(reviews)
+    reviews = dict(list(reviews.items())[start_idx:end_idx])
+
+    return render_template(
+        "review.html",
+        reviews = reviews.items(),
+        limit = per_page,
+        page = page,
+        page_count = int((item_counts/per_page) + 1),
+        total = item_counts)
 
 @application.route("/reg_review", methods=['GET', 'POST'])
 def reg_review():
