@@ -78,7 +78,7 @@ def reg_review():
 
         DB.insert_review(data, image_file.filename)
         
-        return redirect(url_for('hello'))
+        return redirect(url_for('view_review'))
 
 @application.route("/review_detail")
 def review_detail():
