@@ -33,90 +33,38 @@
         </select>
     </div>
 
+    {% if total > 0 %}
     <div class="review_list">
+        {% for key, value in reviews %}
         <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review1.jpg" alt="리뷰 이미지">
-                </div>
+            <a onclick="location.href='/review/{{key}}';">
+                <img class="review_img" src="static/image/{{value.img_path}}" />
                 <div class="review_label">
                     <div class="review_name">
-                        <h3>이화그린 학잠</h3>
-                    </div>
-                    <img src="../static/image/heart2.png" alt="좋아요">
-                </div>
-            </a>
-        </div>
-        <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review2.jpg" alt="리뷰 이미지">
-                </div>
-                <div class="review_label">
-                    <div class="review_name">
-                        <h3>로지텍 블루투스 키보드</h3>
+                        <h3>{{value['title']}}</h3>
                     </div>
                     <img src="../static/image/heart1.png" alt="좋아요">
                 </div>
             </a>
         </div>
-        <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review3.jpg" alt="리뷰 이미지">
-                </div>
-                <div class="review_label">
-                    <div class="review_name">
-                        <h3>MLB 뉴욕양키스 모자</h3>
-                    </div>
-                    <img src="../static/image/heart1.png" alt="좋아요">
-                </div>
-            </a>
-        </div>
-        <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review4.jpg" alt="리뷰 이미지">
-                </div>
-                <div class="review_label">
-                    <div class="review_name">
-                        <h3>에어팟 케이스</h3>
-                    </div>
-                    <img src="../static/image/heart1.png" alt="좋아요">
-                </div>
-            </a>
-        </div>
-        <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review5.jpg" alt="리뷰 이미지">
-                </div>
-                <div class="review_label">
-                    <div class="review_name">
-                        <h3>폼폼푸린 키링</h3>
-                    </div>
-                    <img src="../static/image/heart2.png" alt="좋아요">
-                </div>
-            </a>
-        </div>
-        <div class="review_item">
-            <a href="/review_detail">
-                <div class="review_img">
-                    <img src="../static/image/review6.jpg" alt="리뷰 이미지">
-                </div>
-                <div class="review_label">
-                    <div class="review_name">
-                        <h3>노트북 거치대</h3>
-                    </div>
-                    <img src="../static/image/heart2.png" alt="좋아요">
-                </div>
-            </a>
-        </div>
+        {% endfor %}
     </div>
-
-    <span class="post_review">
-        <a href="/review_reg">+ 리뷰 등록</a>
-    </span>
+    <div class="pagination">
+        <ul>
+            <li>
+                {% for i in range(page_count) %}
+                <a href="{{url_for('view_review', page=i)}}" color="black">{{i}}</a>
+                {% endfor %}
+            </li>
+        </ul>
+    </div>
+    {% else %}
+    <p> 등록된 상품이 없습니다.</p>
+    {% endif %}
+    
+    <!-- <span class="post_review">
+        <a href="/reg_review">+ 리뷰 등록</a>
+    </span> -->
 
 </body>
 

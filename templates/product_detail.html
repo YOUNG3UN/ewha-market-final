@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> // 여기 link, script 중복되는 것들 나중에 수정해야할듯
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 세부 화면</title>
   <link rel="stylesheet" type="text/css" href="../static/product_detail.css" />
+  <script>
+      function redirectToReview(url) {
+        window.location.href = url;
+      }
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
@@ -93,7 +98,10 @@
         <button class="likeBtn">
           <i class="fa fa-heart-o" id="heart"></i> 좋아요
         </button>
-        <button class="buyBtn">구매하기</button>
+        <button class="reviewBtn"
+                onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
+            리뷰 작성하기
+        </button>
       </div>
     </div>
     <div class="column middle">
@@ -105,25 +113,25 @@
       <hr>
       <div class="goodsDetail">
         <div class="sellerID">
-          <!-- <div>∙ 판매자ID</div>
-          <div class="goodsinfo">abc123</div> -->
+          <div>작성자 ID</div>
+          <div class="goodsinfo">{{ product.writerID }}</div>
         </div>
         <div class="goodsCondition">
-          <div>∙ 상품 상태</div>
+          <div>상품 상태</div>
           <div class="goodsinfo">{{ product.status }}</div>
         </div>
         <div class="goodsType">
-          <div>∙ 품목</div>
+          <div>품목</div>
           <div class="goodsinfo">{{ product.category }}</div>
         </div>
         <div class="goodsArea">
-          <div>∙ 판매 지역</div>
+          <div>판매 지역</div>
           <div class="goodsinfo">{{ product.region }}</div>
         </div>
       </div>
       <hr>
         <div class="goodsExplain">
-        <div class="goodsExplainTitle">∙ 상품 설명</div>
+        <div class="goodsExplainTitle">상품 설명</div>
         <div class="goodsinfo">{{ product.content }}</div>
       </div>
     </div>

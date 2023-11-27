@@ -97,7 +97,7 @@ body {
 }
 
 .likeBtn,
-.buyBtn {
+.reviewBtn {
   border: none;
   border-radius: 100px;
   width: 180px;
@@ -112,14 +112,18 @@ body {
   color: #5a5a5a;
 }
 
+.reviewBtn {
+  background-color: #00664f;
+  color: white;
+}
+
+.reviewBtn:hover {
+  cursor: pointer;
+}
+
 .heart-icon {
   color: #00664f;
   margin-right: 5px;
-}
-
-.buyBtn {
-  background-color: #00664f;
-  color: white;
 }
 
 .middle {
@@ -165,6 +169,10 @@ body {
   display: flex;
   padding-bottom: 15px;
   gap: 30px;
+}
+
+.sellerID{
+    padding-top: 15px;
 }
 
 .goodsType {

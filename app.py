@@ -48,6 +48,44 @@ def insert_products():
         return redirect(url_for('hello'))
     return render_template("product_reg.html")
 
+@application.route("/review")
+def view_review():
+    page = request.args.get("page", 0, type=int)
+    per_page = 6 # 페이지당 상품 개수
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+    reviews = DB.get_reviews()
+    item_counts = len(reviews)
+    reviews = dict(list(reviews.items())[start_idx:end_idx])
+
+    return render_template(
+        "review.html",
+        reviews = reviews.items(),
+        limit = per_page,
+        page = page,
+        page_count = int((item_counts/per_page) + 1),
+        total = item_counts)
+
+@application.route("/reg_review", methods=['GET', 'POST'])
+def reg_review():
+    if request.method == 'GET':
+        sellerID = request.args.get('writerID')
+        category = request.args.get('category')
+        return render_template("review_reg.html", category=category, sellerID=sellerID)
+    elif request.method == 'POST':
+        image_file = request.files["file"]
+        image_file.save("static/image/{}".format(image_file.filename))
+        data = request.form
+
+        DB.insert_review(data, image_file.filename)
+        
+        return redirect(url_for('view_review'))
+
+@application.route('/review/<key>')
+def review_detail(key):
+    review = DB.get_review_byname(str(key))
+    return render_template("review_detail.html", review=review)
+
 @application.route("/login")
 def login():
     return render_template("login.html")
@@ -85,18 +123,6 @@ def register_user():
     else:
         flash("이미 존재하는 아이디입니다!")
         return render_template("join.html")
-
-@application.route("/review")
-def review():
-    return render_template("review.html")
-
-@application.route("/review_reg")
-def review_reg():
-    return render_template("review_reg.html")
-
-@application.route("/review_detail")
-def review_detail():
-    return render_template("review_detail.html")
 
 @application.route("/mp_product")
 def mp_product():

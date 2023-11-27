@@ -150,6 +150,39 @@ select {
   align-items: center;
 }
 
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+  margin-bottom: 50px;
+}
+
+.pagination li{
+  list-style: none;
+}
+
+.pagination a{
+  display: block;
+  margin: 0 3px;
+  float: left;
+  border: 1px solid #B3B3B3;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  background-color: #fff;
+  font-size: 13px;
+  color: black;
+  text-decoration: none;
+  font-weight:bold;
+}
+
+.pagination a:hover {
+  cursor: pointer;
+  border: 2px solid #00664F;
+}
+
 .post_review {
   font-weight: bold;
   background-color: white;

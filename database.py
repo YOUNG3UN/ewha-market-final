@@ -18,19 +18,34 @@ class DBhandler:
             "status": data['status'],
             "title": data['title'],
             "content": data['content'],
+            "writerID": data['writerID'],
             "img_path": img_path
         }
 
         self.db.child("product").push(product_info)
         return True
 
+    def insert_review(self, data, img_path):
+        review_info = {
+             "sellerID": data['sellerID'],
+             "category": data['category'],
+             "rate": data['rate'],
+             "title": data['title'],
+             "content": data['content'],
+             "img_path": img_path,
+             "writerID": data['writerID']
+        }
+
+        self.db.child("review").push(review_info)
+        return True
+
     def insert_user(self, data, pw):
-        user_info ={
+        user_info = {
             "id": data['username'],
             "pw": pw,
             "email": data['email'],
             "phone": data['phone'],
-            "birthdate": data['birthdate'] 
+            "birthdate": data['birthdate']
         }
         if self.user_duplicate_check(str(data['username'])):
             self.db.child("user").push(user_info)
@@ -76,6 +91,21 @@ class DBhandler:
                 target_value=res.val()
         return target_value
     
+
+    def get_reviews(self):
+        reviews = self.db.child("review").get().val()
+        return reviews
+
+    def get_review_byname(self, name):
+        items = self.db.child("review").get()
+        target_value=""
+        for res in items.each():
+            key_value = res.key()
+            
+            if key_value == name:
+                target_value=res.val()
+        return target_value
+
     def get_heart_byname(self, uid, name):
         hearts = self.db.child("heart").child(uid).get()
         target_value=""

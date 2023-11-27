@@ -24,19 +24,31 @@
     </div>
     <div class="divider"></div>
 
-    <form action="">
-        <div class="info">
-            <input type="text" name="id" placeholder="판매자 ID">
-            <input type="text" name="item" placeholder="품목">
-            <input type="text" name="score" placeholder="별점">
+     <form name="reviewform" id="reviewform" action="/reg_review" method="post" enctype="multipart/form-data">
+        <div class="info-rate-container">
+            <div class="info">
+                <input type="hidden" name="writerID" value="{{session['id']}}">
+                <input type="text" name="sellerID" value="{{ sellerID }}">
+                <input type="text" name="category" value="{{ category }}">
+            </div>
+            <div class="rate">
+                <fieldset>
+                    <input type="radio" name="rate" value="5" id="rate1"><label for="rate1">★</label>
+                    <input type="radio" name="rate" value="4" id="rate2"><label for="rate2">★</label>
+                    <input type="radio" name="rate" value="3" id="rate3"><label for="rate3">★</label>
+                    <input type="radio" name="rate" value="2" id="rate4"><label for="rate4">★</label>
+                    <input type="radio" name="rate" value="1" id="rate5"><label for="rate5">★</label>
+                    <span class="text-bold"> : 별점</span>
+                </fieldset>    
+            </div>
         </div>
         <div class="title">
-            <input type="text" class="review_title" name="review_title" placeholder="제목">
+            <input type="text" class="review_title" name="title" placeholder="제목">
             <label for="file">+</label>
             <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, image/*">
         </div>
         <div class="content">
-            <textarea name="review_content" placeholder="본문"></textarea>
+            <textarea name="content" placeholder="본문"></textarea>
         </div>
         <div class="save-button">
             <button class="temp">임시저장</button>
