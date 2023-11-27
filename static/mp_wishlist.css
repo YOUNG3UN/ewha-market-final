@@ -1,12 +1,13 @@
 @import url("./reset.css");
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 
 body {
-  background-color: #FFF2CC;
-  font-family: 'Inter', sans-serif;
+  background-color: #fff2cc;
+  font-family: "Inter", sans-serif;
   margin: 0;
 }
+
+/*header*/
 
 .header {
   display: flex;
@@ -30,19 +31,17 @@ body {
 .header .logo p {
   font-size: 36px;
   font-weight: bold;
-  color: #00664F;
+  color: #00664f;
   vertical-align: middle;
-
 }
 
 .divider {
   width: 100%;
   height: 3px;
-  background-color: #B3B3B3;
+  background-color: #b3b3b3;
 }
 
-
-
+/*상단 navigation bar*/
 .nav {
   list-style: none;
   display: flex;
@@ -61,34 +60,84 @@ body {
   font-size: 18px;
 }
 
+/*위시리스트 상품*/
 section {
   float: right;
-  width: 85%;
-  margin-right: 5%;
+  width: 70%;
 }
 
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 50px 50px 0 50px;
+}
+
+.product-box {
+  width: calc(33.33% - 50px);
+  height: 350px;
+  background-color: #fff;
+  margin-bottom: 70px;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-right: 40px;
+  margin-left: 6px;
+}
+
+.product-box a {
+  text-decoration: none;
+  color: black;
+}
+
+.product-box:hover {
+  cursor: pointer;
+  border: 2px solid #00664f;
+}
+
+.product-image {
+  width: 100%;
+  height: 75%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: 2px solid #00664f;
+  overflow: hidden;
+}
+
+.product-info {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.product-name {
+  display: flex;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*좌측 네비게이션 바*/
 aside {
   float: left;
   width: 7%;
   margin-left: 3%;
 }
 
-aside div{
+aside div {
   padding-top: 30px;
+  padding-right: 30px;
 }
 
 .bar {
-
   width: 200px;
   font-size: 32px;
   font-weight: bold;
-  color: #00664F;
+  color: #00664f;
   margin-left: 5%;
   align-items: left;
-
-
 }
-
 
 a {
   text-decoration: none;
@@ -120,7 +169,6 @@ a {
   padding: 10px;
 }
 
-
 .navi3 p {
   width: 250px;
   display: flex;
@@ -134,77 +182,4 @@ a {
   padding: 8px;
   background-color: white;
   border-radius: 20px;
-}
-
-
-
-
-.wishlist_list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 50px 10%;
-}
-
-
-.wishlist_row {
-  display: flex;
-  flex-direction: row;
-  margin-left: 20%
-}
-
-.wishlist_item {
-  width: calc(33.33% - 50px);
-  height: 300px;
-  background-color: #fff;
-  margin-bottom: 20px;
-  margin-top: 50px;
-  border-radius: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  margin-right: 40px;
-}
-
-.wishlist_item:hover {
-  cursor: pointer;
-  border: 2px solid #00664F;
-}
-
-
-.wishlist_img {
-  width: 100%;
-  height: 85%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom: 2px solid #00664F;
-  overflow: hidden;
-}
-
-.wishlist_img img {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.wishlist_label {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 15px;
-  margin-right: 15px;
-  height: 15%;
-}
-
-.wishlist_name {
-  display: flex;
-  font-weight: bold;
-  width: 80%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.wishlist_label img {
-  height: 20px;
-  display: flex;
-  vertical-align: middle;
 }

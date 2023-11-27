@@ -1,120 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이화마켓 - 마이페이지 - 위시리스트 </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이화마켓 - 마이페이지 - 위시리스트</title>
     <link rel="stylesheet" href="../static/mp_wishlist.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="header">
-        <div class="logo">
-            <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-            <p>이화 마켓</p>
-        </div>
-        <ul class="nav">
-            <li><a href="/home"> HOME </a></li>
-        </ul>
+      <div class="logo">
+        <img
+          src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27"
+        />
+        <p>이화 마켓</p>
+      </div>
+      <ul class="nav">
+        <li><a href="/home"> HOME </a></li>
+      </ul>
     </div>
     <div class="divider"></div>
 
-    <section class="wishlist">
-        <div class="wishlist_row">
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist1.jpg" alt="위시리스트 이미지">
-                </div>
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        워커 부츠
-                    </div>
-
-
-
-                </div>
+    <section class="products">
+      {% for item in products %}
+      <div class="product-box">
+        <a onclick="location.href='/products/{{item.key}}';">
+          <img class="product-image" src="static/image/{{item.img_path}}" />
+          <div class="product-info">
+            <div class="product-name">
+              <h3>{{item.title}}</h3>
             </div>
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist2.jpg" alt="위시리스트 이미지">
-                </div>
-
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        게이밍 의자
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist3.jpg" alt="위시리스트 이미지">
-                </div>
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        유니클로 백팩
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="wishlist_row">
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist4.jpg" alt="위시리스트 이미지">
-                </div>
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        애플펜슬
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist5.jpg" alt="위시리스트 이미지">
-                </div>
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        크록스
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="wishlist_item">
-                <div class="wishlist_img">
-                    <img src="../static/image/mp_wishlist6.jpg" alt="위시리스트 이미지">
-                </div>
-                <div class="wishlist_label">
-                    <div class="wishlist_name">
-                        스투시 후드티
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- <div class="product-reviewnum">
+                        판매자 리뷰 10개
+                        <img src="../static/image/heart1.png" alt="좋아요">
+                    </div>-->
+          </div>
+        </a>
+        <i
+          class="fa fa-heart-o heart-icon"
+          id="heart-{{item.key}}"
+          style="font-size: 25px"
+        ></i>
+      </div>
+      {% endfor %}
     </section>
 
-
     <aside class="navigation">
-        <div class="bar">
-            <p>마이페이지</p>
-        </div>
-        <div class="navi1">
-            <p><a href="/mp_product">상품 판매 내역</a></p>
-        </div>
-        <div class="navi2">
-            <p><a href="/mp_review">리뷰</a></p>
-        </div>
-        <div class="navi3">
-            <p><a href="/mp_wishlist">위시리스트</a></p>
-        </div>
+      <div class="bar">
+        <p>마이페이지</p>
+      </div>
+      <div class="navi1">
+        <p><a href="/mp_product">상품 판매 내역</a></p>
+      </div>
+      <div class="navi2">
+        <p><a href="/mp_review">리뷰</a></p>
+      </div>
+      <div class="navi3">
+        <p><a href="/mp_wishlist">위시리스트</a></p>
+      </div>
     </aside>
-
-</body>
-
+  </body>
 </html>
