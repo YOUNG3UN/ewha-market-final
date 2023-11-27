@@ -69,8 +69,9 @@ def view_review():
 @application.route("/reg_review", methods=['GET', 'POST'])
 def reg_review():
     if request.method == 'GET':
+        sellerID = request.args.get('writerID')
         category = request.args.get('category')
-        return render_template("review_reg.html", category=category)
+        return render_template("review_reg.html", category=category, sellerID=sellerID)
     elif request.method == 'POST':
         image_file = request.files["file"]
         image_file.save("static/image/{}".format(image_file.filename))
@@ -80,9 +81,10 @@ def reg_review():
         
         return redirect(url_for('view_review'))
 
-@application.route("/review_detail")
-def review_detail():
-    return render_template("review_detail.html")
+@application.route('/review/<key>')
+def review_detail(key):
+    review = DB.get_review_byname(str(key))
+    return render_template("review_detail.html", review=review)
 
 @application.route("/login")
 def login():

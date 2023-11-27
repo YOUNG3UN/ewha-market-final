@@ -18,6 +18,7 @@ class DBhandler:
             "status": data['status'],
             "title": data['title'],
             "content": data['content'],
+            "writerID": data['writerID'],
             "img_path": img_path
         }
 
@@ -31,7 +32,8 @@ class DBhandler:
              "rate": data['rate'],
              "title": data['title'],
              "content": data['content'],
-             "img_path": img_path
+             "img_path": img_path,
+             "writerID": data['writerID']
         }
 
         self.db.child("review").push(review_info)
@@ -93,3 +95,12 @@ class DBhandler:
         reviews = self.db.child("review").get().val()
         return reviews
 
+    def get_review_byname(self, name):
+        items = self.db.child("review").get()
+        target_value=""
+        for res in items.each():
+            key_value = res.key()
+            
+            if key_value == name:
+                target_value=res.val()
+        return target_value

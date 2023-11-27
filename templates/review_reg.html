@@ -27,8 +27,9 @@
      <form name="reviewform" id="reviewform" action="/reg_review" method="post" enctype="multipart/form-data">
         <div class="info-rate-container">
             <div class="info">
-                <input type="text" name="sellerID" placeholder="판매자 ID">
-                <input type="text" name="category" value="{{ request.args.get('category') }}">
+                <input type="hidden" name="writerID" value="{{session['id']}}">
+                <input type="text" name="sellerID" value="{{ sellerID }}">
+                <input type="text" name="category" value="{{ category }}">
             </div>
             <div class="rate">
                 <fieldset>

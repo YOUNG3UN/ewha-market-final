@@ -40,7 +40,7 @@
           <span class="heart-icon">♥</span> 좋아요
         </button>
         <button class="reviewBtn"
-                onclick="redirectToReview('{{ url_for('reg_review', category=product.category) }}')">
+                onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
             리뷰 작성하기
         </button>
       </div>
@@ -54,25 +54,25 @@
       <hr>
       <div class="goodsDetail">
         <div class="sellerID">
-          <!-- <div>∙ 판매자ID</div>
-          <div class="goodsinfo">abc123</div> -->
+          <div>작성자 ID</div>
+          <div class="goodsinfo">{{ product.writerID }}</div>
         </div>
         <div class="goodsCondition">
-          <div>∙ 상품 상태</div>
+          <div>상품 상태</div>
           <div class="goodsinfo">{{ product.status }}</div>
         </div>
         <div class="goodsType">
-          <div>∙ 품목</div>
+          <div>품목</div>
           <div class="goodsinfo">{{ product.category }}</div>
         </div>
         <div class="goodsArea">
-          <div>∙ 판매 지역</div>
+          <div>판매 지역</div>
           <div class="goodsinfo">{{ product.region }}</div>
         </div>
       </div>
       <hr>
         <div class="goodsExplain">
-        <div class="goodsExplainTitle">∙ 상품 설명</div>
+        <div class="goodsExplainTitle">상품 설명</div>
         <div class="goodsinfo">{{ product.content }}</div>
       </div>
     </div>

@@ -37,7 +37,7 @@
     <div class="review_list">
         {% for key, value in reviews %}
         <div class="review_item">
-            <a href="/review_detail">
+            <a onclick="location.href='/review/{{key}}';">
                 <img class="review_img" src="static/image/{{value.img_path}}" />
                 <div class="review_label">
                     <div class="review_name">
@@ -62,9 +62,9 @@
     <p> 등록된 상품이 없습니다.</p>
     {% endif %}
     
-    <span class="post_review">
+    <!-- <span class="post_review">
         <a href="/reg_review">+ 리뷰 등록</a>
-    </span>
+    </span> -->
 
 </body>
 

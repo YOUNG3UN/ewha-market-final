@@ -26,6 +26,7 @@
 
     <form action="/products_insert" method="post" enctype="multipart/form-data">
         <div class="info">
+            <input type="hidden" name="writerID" value="{{session['id']}}">
             <input type="text" name="category" placeholder="품목">
             <input type="text" name="region" placeholder="지역">
             <input type="text" name="price" placeholder="가격">

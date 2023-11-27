@@ -26,37 +26,47 @@
   </div>
   <div class="divider"></div>
   <section>
-    <div class="category">카테고리 > 서브카테고리</div>
-    <div class="goodsName">상품 이름</div>
-    <div class="goodsScore">★★★★☆</div>
+    <div class="category">카테고리 > {{ review.category }}</div>
+    <div class="goodsName">{{ review.title }}</div>
+    <img class="review-image" src="../static/image/{{ review.img_path }}" style="width: 400px; height: 400px; padding-bottom: 20px;">
+    <!-- <div class="goodsScore">{{ review.score }}점</div> -->
+      
     <div class="goodsDetail">
-      <div class="reviewDate">
+      <!-- <div class="reviewDate">
         <div>작성일</div>
         <div class="goodsinfo">20XX년 XX월 XX일</div>
+      </div> -->
+      <div class="reviewerName">
+        <div>리뷰 별점</div>
+        <div class="goodsinfo">{{ review.rate }}점</div>
+      </div>  
+      <div class="reviewerName">
+        <div>판매자 ID</div>
+        <div class="goodsinfo">{{ review.sellerID }}</div>
       </div>
       <div class="reviewerName">
-        <div>작성자</div>
-        <div class="goodsinfo">(작성자 아이디)</div>
+        <div>작성자 ID</div>
+        <div class="goodsinfo">{{ review.writerID }}</div>
       </div>
     </div>
     <div class="reviewDetailDivider"></div>
     <div class="goodsReview">
       <div class="goodsReviewTitle">상품 리뷰</div>
-      <div>(구매자가 작성한 상품에 대한 리뷰)</div>
+      <div>{{ review.content }}</div>
     </div>
-    <div class="moveReview">
+    <!-- <div class="moveReview">
       <div class="nextReview">
         <div>△ 다음 리뷰</div>
         <div>(리뷰 상품 이름)</div>
       </div>
-    </div>
-    <div class="moveReviewDivider"></div>
+    </div> -->
+    <!-- <div class="moveReviewDivider"></div>
     <div class="moveReview">
       <div class="prevReview">
         <div>▽ 이전 리뷰</div>
         <div>(리뷰 상품 이름)</div>
       </div>
-    </div>
+    </div> -->
   </section>
 
   <aside>

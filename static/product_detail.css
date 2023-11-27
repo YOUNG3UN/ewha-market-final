@@ -171,6 +171,10 @@ body {
   gap: 30px;
 }
 
+.sellerID{
+    padding-top: 15px;
+}
+
 .goodsType {
   gap: 70px;
 }
