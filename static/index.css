@@ -145,13 +145,6 @@ h3 {
     vertical-align: middle;
 }
 
-.product-info img {
-    display: flex;
-    float: right;
-    height: 25px;
-    cursor: pointer;
-}
-
 .pagination{
     display: flex;
     justify-content: center;
@@ -200,4 +193,13 @@ h3 {
     text-decoration: none;
     color: black;
     font-size: 18px;
+}
+
+.heart-icon {
+    color: #5A5A5A;
+    display: flex;
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    margin-right: 15px;
 }

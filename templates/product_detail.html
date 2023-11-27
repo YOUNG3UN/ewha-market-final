@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> // 여기 link, script 중복되는 것들 나중에 수정해야할듯
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 세부 화면</title>
@@ -11,9 +11,68 @@
         window.location.href = url;
       }
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
+  <script>
+    function showHeart() {
+      $.ajax({
+        type: 'GET',
+        url: '/show_heart/{{key}}/',
+        data: {},
+        success: function (response) {
+          let my_heart = response['my_heart'];
+          if (my_heart['interested'] == 'Y') {
+            $("#heart").removeClass("fa-heart-o");
+            $("#heart").addClass("fa-heart");
+            $("#heart").css("color","red");
+            $(".likeBtn").attr("onclick","unlike()");
+          }
+          else {
+            $("#heart").removeClass("fa-heart");
+            $("#heart").addClass("fa-heart-o");
+            $("#heart").css("color","#5a5a5a");
+            $(".likeBtn").attr("onclick","like()");
+          }
+        }
+      });
+    }
+    function like() {
+      $.ajax({
+        type: 'POST',
+        url: '/like/{{key}}/',
+        data: {
+          interested : "Y"
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.reload()
+        }
+      });
+    }
+    function unlike() {
+      $.ajax({
+        type: 'POST',
+        url: '/unlike/{{key}}/',
+        data: {
+          interested: "N"
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.reload()
+        }
+      });
+    }
+    "{% if session['id'] %}"
+      $(document).ready(function() {
+        showHeart();
+      });
+    "{% endif %}"
+  </script>
+  
+
   <div class="header">
     <div class="logo">
       <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
@@ -37,7 +96,7 @@
       <img class="product-image" src="../static/image/{{ product.img_path }}" style="width: 400px; height: 400px">
       <div class="buttons">
         <button class="likeBtn">
-          <span class="heart-icon">♥</span> 좋아요
+          <i class="fa fa-heart-o" id="heart"></i> 좋아요
         </button>
         <button class="reviewBtn"
                 onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
