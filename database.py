@@ -95,3 +95,18 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
+    
+    def get_wishlist_items(self, user_id):
+        wishlist_items = []
+        user_wishlist = self.db.child("heart").child(user_id).get().val()
+
+        if user_wishlist:
+            for item_id, item_details in user_wishlist.items():
+                interested_status = item_details.get("interested")
+                if interested_status == "Y":
+                    item_info = self.db.child("product").child(item_id).get().val()
+                    if item_info:
+                        item_info['key'] = item_id
+                        wishlist_items.append(item_info)
+
+        return wishlist_items
