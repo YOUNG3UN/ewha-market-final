@@ -84,7 +84,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 50px 10%;
+  padding: 50px 10% 0 10%;
 }
 
 .review_item {
