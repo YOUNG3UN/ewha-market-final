@@ -78,13 +78,20 @@ def reg_review():
         data = request.form
 
         DB.insert_review(data, image_file.filename)
-        
+
         return redirect(url_for('view_review'))
 
 @application.route('/review/<key>')
 def review_detail(key):
     review = DB.get_review_byname(str(key))
     return render_template("review_detail.html", review=review)
+
+@application.context_processor
+def utility_processor():
+    def stars_rating(rate):
+        return range(int(rate))
+
+    return dict(stars_rating=stars_rating)
 
 @application.route("/login")
 def login():
@@ -106,7 +113,6 @@ def login_user():
 @application.route("/logout")
 def logout_user():
     session.clear()
-    # return render_template("index.html")
     return redirect(url_for('view_list'))
 
 @application.route("/join")
