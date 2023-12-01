@@ -178,7 +178,6 @@ def find_password():
     email_ = request.form['email']
 
     if DB.check_user(id_, email_):
-        flash("새로운 비밀번호를 입력해주세요!")
         return render_template("find_pw.html", id=id_)
     else:
         flash("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요!")
@@ -193,7 +192,7 @@ def reset_password(user_id):
         pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
         DB.change_password(user_id, pw_hash)
         flash("[비밀번호 변경 완료] 변경된 비밀번호로 로그인 해주세요!")
-        return render_template("login.html")
+        return redirect(url_for('login'))
     else:
         flash("비밀번호가 일치하지 않습니다. 다시 입력해주세요!")
         return render_template("find_pw.html", id=user_id)
