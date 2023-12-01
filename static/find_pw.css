@@ -34,17 +34,25 @@ body::after {
     padding: 30px 30px;
 }
 
-.login {
+.checkUser {
     display: flex;
 }
 
-.loginInput {
+.newPassword {
     display: flex;
     flex-direction: column;
 }
 
-.loginId,
-.loginPwd {
+.userInput,
+.newPwInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkId,
+.checkEmail,
+.checkPw,
+.checkConfirmPw {
     border: none;
     width: 300px;
     height: 70px;
@@ -53,41 +61,72 @@ body::after {
     font-size: 20px;
 }
 
-.loginInput input::placeholder {
+.userInput input::placeholder {
     font-size: 20px;
     vertical-align: middle;
 }
 
-.loginButton input {
+.newPwInput input::placeholder {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.checkUserButton input {
     background-color: #00664F;
     border: none;
     color: white;
     width: 180px;
     height: 175px;
     margin: 15px 15px;
+    padding: 2px 25px 0px 20px;
     font-size: 30px;
     font-weight: bold;
 }
 
-.loginButton input:hover {
+.changePwButton input {
+    background-color: #00664F;
+    border: none;
+    color: white;
+    width: 345px;
+    height: 55px;
+    margin: 15px 15px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.checkUserButton input:hover {
     cursor: pointer;
     background-color: #008e6d;
 }
 
-.loginBox {
+.changePWButton input:hover {
+    cursor: pointer;
+    background-color: #008e6d;
+}
+
+.findPassword,
+.resetPassword {
+    background-color: rgba(255,255,255,0.25);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 30px 30px;
 }
 
-.loginOptions {
-    margin: 10px 15px;
-    font-size: 17px;
-    font-weight: bold;
+.guide {
+    margin-bottom: 15px;
 }
-
-.loginOptions a {
-    text-decoration: none;
+.guide h1 {
+    text-align: center;
     color: black;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: normal;
+}
+.guide p {
+    text-align: center;
+    color: black;
+    font-size: 18px;
+    line-height: normal;
+    padding-top: 15px;
 }

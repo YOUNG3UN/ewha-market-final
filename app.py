@@ -168,6 +168,36 @@ def wish_list():
     total=item_counts
 )
 
+@application.route("/find_pw")
+def find_pw():
+    return render_template("find_pw.html")
+
+@application.route("/find_password", methods=['POST'])
+def find_password():
+    id_ = request.form['id']
+    email_ = request.form['email']
+
+    if DB.check_user(id_, email_):
+        flash("새로운 비밀번호를 입력해주세요!")
+        return render_template("find_pw.html", id=id_)
+    else:
+        flash("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요!")
+        return render_template("find_pw.html")
+
+@application.route("/reset_password/<user_id>", methods=["POST"])
+def reset_password(user_id):
+    pw = request.form['pw']
+    confirm_pw = request.form['confirm_pw']
+
+    if pw == confirm_pw:
+        pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+        DB.change_password(user_id, pw_hash)
+        flash("[비밀번호 변경 완료] 변경된 비밀번호로 로그인 해주세요!")
+        return render_template("login.html")
+    else:
+        flash("비밀번호가 일치하지 않습니다. 다시 입력해주세요!")
+        return render_template("find_pw.html", id=user_id)
+
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0')
