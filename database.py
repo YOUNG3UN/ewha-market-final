@@ -136,6 +136,8 @@ class DBhandler:
                     if item_info:
                         item_info['key'] = item_id
                         wishlist_items.append(item_info)
+        
+        return wishlist_items
     
     def check_user(self, user_id, user_email):
         users = self.db.child("user").get()
