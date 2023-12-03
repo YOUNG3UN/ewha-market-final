@@ -10,14 +10,14 @@
 
 <body>
     <div class="title">
-        <p>이화마켓</p>
+        <p><a href="/home">이화마켓</a></p>
     </div>
     <div>
         {% with mesg = get_flashed_messages() %}
         {% if mesg !=[] %}
-            <script>alert("{{ mesg[0] }}")</script>
+        <script>alert("{{ mesg[0] }}")</script>
         {% endif %}
-        {% endwith %}  
+        {% endwith %}
         <form method="post" action="/login_confirm">
             <div class="loginBox">
                 <div class="login">

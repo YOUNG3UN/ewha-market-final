@@ -1,146 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이화 마켓</title>
-    <link rel="stylesheet" href="../static/index.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-  </head>
 
-  <body>
-    <script>
-      function showHeart(key) {
-        $.ajax({
-          type: 'GET',
-          url: '/show_heart/' + key + '/',
-          data: {},
-          success: function (response) {
-            let my_heart = response['my_heart'];
-            let heartId = "#heart-" + key;
-            if (my_heart['interested'] == 'Y') {
-              $(heartId).removeClass("fa-heart-o");
-              $(heartId).addClass("fa-heart");
-              $(heartId).css("color","red");
-              $(heartId).attr("onclick","unlike('" + key + "')");
-            }
-            else {
-              $(heartId).removeClass("fa-heart");
-              $(heartId).addClass("fa-heart-o");
-              $(heartId).css("color","#5a5a5a");
-              $(heartId).attr("onclick","like('" + key + "')");
-            }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이화 마켓</title>
+  <link rel="stylesheet" href="../static/index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  <script>
+    function showHeart(key) {
+      $.ajax({
+        type: 'GET',
+        url: '/show_heart/' + key + '/',
+        data: {},
+        success: function (response) {
+          let my_heart = response['my_heart'];
+          let heartId = "#heart-" + key;
+          if (my_heart['interested'] == 'Y') {
+            $(heartId).removeClass("fa-heart-o");
+            $(heartId).addClass("fa-heart");
+            $(heartId).css("color", "red");
+            $(heartId).attr("onclick", "unlike('" + key + "')");
           }
-        });
-      }
-      function like(key) {
-        $.ajax({
-          type: 'POST',
-          url: '/like/' + key + '/',
-          data: {
-            interested : "Y"
-          },
-          success: function (response) {
-            alert(response['msg']);
-            window.location.reload()
+          else {
+            $(heartId).removeClass("fa-heart");
+            $(heartId).addClass("fa-heart-o");
+            $(heartId).css("color", "#5a5a5a");
+            $(heartId).attr("onclick", "like('" + key + "')");
           }
-        });
-      }
-      function unlike(key) {
-        $.ajax({
-          type: 'POST',
-          url: '/unlike/' + key + '/',
-          data: {
-            interested: "N"
-          },
-          success: function (response) {
-            alert(response['msg']);
-            window.location.reload()
-          }
-        });
-      }
+        }
+      });
+    }
+    function like(key) {
+      $.ajax({
+        type: 'POST',
+        url: '/like/' + key + '/',
+        data: {
+          interested: "Y"
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.reload()
+        }
+      });
+    }
+    function unlike(key) {
+      $.ajax({
+        type: 'POST',
+        url: '/unlike/' + key + '/',
+        data: {
+          interested: "N"
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.reload()
+        }
+      });
+    }
+    $(document).ready(function () {
       "{% if session['id'] %}"
       "{% for key, value in products %}"
-        $(document).ready(function () {
-          showHeart('{{ key }}');
-        });
+      showHeart('{{ key }}');
       "{% endfor %}"
+      "{% else %}"
+      $('.fa-heart-o, .fa-heart').on('click', function () {
+        alert('로그인이 필요합니다.');
+      });
       "{% endif %}"
-    </script>
-    
+    });
+  </script>
 
-    <div class="header">
-      <div class="logo">
-      <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-          <p>이화 마켓</p>
-      </div>
-      <ul class="nav">
-        <li><a href="/home">상품 조회</a></li>
-        |
-        <li><a href="/review">리뷰 조회</a></li>
-        |
-        <li><a href="/mp_product">My Page</a></li>
-        | {% if session['id'] %}
-        <li>
-          <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
-        </li>
-        <script>
-          
-        </script>
-        {% else %}
-        <li><a href="/login">로그인</a></li>
-        {% endif %}
-      </ul>
-    </div>
 
-    <div class="banner">
-      <h2>이화 마켓에서 원하는 상품을 찾아보세요!</h2>
+  <div class="header">
+    <div class="logo">
+      <a href="/home">
+        <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
+        <p>이화 마켓</p>
+      </a>
     </div>
+    <ul class="nav">
+      <li><a href="/home">상품 조회</a></li>
+      |
+      <li><a href="/review">리뷰 조회</a></li>
+      |
+      {% if session['id'] %}
+      <li><a href="/mp_product">My Page</a></li>
+      | <li>
+        <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+      </li>
+      <script>
 
-    <div class="dropdown">
-      <select>
-        <option value="최신순">최신순</option>
-        <option value="가격순">가격순</option>
-        <option value="인기순">인기순</option>
-      </select>
-    </div>
-    
-    {% if total > 0 %}
-    <div class="products">
-      {% for key, value in products %}
-      <div class="product-box">
-        <a onclick="location.href='/products/{{key}}';">
-          <img class="product-image" src="static/image/{{value.img_path}}" />
-          <div class="product-info">
-            <div class="product-name">
-              <h3>{{value['title']}}</h3>
-            </div>
-            <!-- <div class="product-reviewnum">
+      </script>
+      {% else %}
+      <li><a href="/login">로그인</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="banner">
+    <h2>이화 마켓에서 원하는 상품을 찾아보세요!</h2>
+  </div>
+
+  <div class="dropdown">
+    <select>
+      <option value="최신순">최신순</option>
+      <option value="가격순">가격순</option>
+      <option value="인기순">인기순</option>
+    </select>
+  </div>
+
+  {% if total > 0 %}
+  <div class="products">
+    {% for key, value in products %}
+    <div class="product-box">
+      <a onclick="location.href='/products/{{key}}';">
+        <img class="product-image" src="static/image/{{value.img_path}}" />
+        <div class="product-info">
+          <div class="product-name">
+            <h3>{{value['title']}}</h3>
+          </div>
+          <!-- <div class="product-reviewnum">
                         판매자 리뷰 10개
                         <img src="../static/image/heart1.png" alt="좋아요">
                     </div>-->
-          </div>
-        </a>
-        <i class="fa fa-heart-o heart-icon" id="heart-{{key}}" style="font-size:25px"></i>
-      </div>
-      {% endfor %}
+        </div>
+      </a>
+      <i class="fa fa-heart-o heart-icon" id="heart-{{key}}" style="font-size:25px"></i>
     </div>
-    <div class="pagination">
-      <ul>
-        <li>
-          {% for i in range(page_count) %}
-          <a href="{{url_for('view_list', page=i)}}" color="black">{{i}}</a>
-          {% endfor %}
-        </li>
-      </ul>
-    </div>
-    {% else %}
-    <p>등록된 상품이 없습니다.</p>
-    {% endif %}
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    <ul>
+      <li>
+        {% for i in range(page_count) %}
+        <a href="{{url_for('view_list', page=i)}}" color="black">{{i}}</a>
+        {% endfor %}
+      </li>
+    </ul>
+  </div>
+  {% else %}
+  <p>등록된 상품이 없습니다.</p>
+  {% endif %}
 
-    <span class="post_product">
-      <a href="/products_insert">+ 상품 등록</a>
-    </span>
-  </body>
+  <span class="post_product">
+    {% if session['id'] %}
+    <a href="/products_insert">+ 상품 등록</a>
+    {% else %}
+    <a href="#" onclick="alert('로그인이 필요합니다.');">+ 상품 등록</a>
+    {% endif %}
+  </span>
+</body>
+
 </html>

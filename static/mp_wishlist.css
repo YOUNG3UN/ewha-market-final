@@ -22,6 +22,12 @@ body {
   align-items: center;
 }
 
+.header .logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
 .header .logo img {
   width: 50px;
   height: 50px;

@@ -22,13 +22,21 @@ body::after {
     z-index: -1;
 }
 
+.title a {
+    text-decoration: none;
+}
+
+.title a:visited {
+    color: #00664F;
+}
 
 .title p {
+    display: inline-block;
     color: #00664F;
     font-size: 75px;
     font-weight: bold;
     line-height: normal;
-    padding: 30px 30px;
+    padding: 30px;
 }
 
 .login {
