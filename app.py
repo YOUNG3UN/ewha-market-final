@@ -144,7 +144,6 @@ def register_user():
 def mp_product():
     return redirect(url_for('my_product_a'))
 
-
 @application.route('/show_heart/<key>/', methods=['GET'])
 def show_heart(key):
     my_heart = DB.get_heart_byname(session['id'],key)
@@ -192,6 +191,28 @@ def my_product_a():
     total=item_counts
 )
 
+@application.route("/mp_product_a")
+def my_product_a():
+    if 'id' not in session:
+        flash("로그인이 필요합니다.")
+        return redirect(url_for('login'))
+    print(session['id'])
+    writer_id = session['id']
+    my_products = DB.get_my_products(writer_id) 
+    print("..................................................")
+    return render_template("mp_product.html", my_products=my_products)
+
+#     print("Retrieved wishlist items:", products)
+
+    return render_template(
+    "mp_wishlist.html",
+    products = products,
+    limit=per_page,
+    page=page,
+    page_count=int((item_counts / per_page) + 1),
+    total=item_counts
+)
+
 @application.route("/mp_review", methods=['GET'])
 def mp_review():
      page = request.args.get("page", 0, type=int)
@@ -213,6 +234,35 @@ def mp_review():
      total=item_counts
  )
 
+
+@application.route("/find_pw")
+def find_pw():
+    return render_template("find_pw.html")
+
+@application.route("/find_password", methods=['POST'])
+def find_password():
+    id_ = request.form['id']
+    email_ = request.form['email']
+
+    if DB.check_user(id_, email_):
+        return render_template("find_pw.html", id=id_)
+    else:
+        flash("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요!")
+        return render_template("find_pw.html")
+
+@application.route("/reset_password/<user_id>", methods=["POST"])
+def reset_password(user_id):
+    pw = request.form['pw']
+    confirm_pw = request.form['confirm_pw']
+
+    if pw == confirm_pw:
+        pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+        DB.change_password(user_id, pw_hash)
+        flash("[비밀번호 변경 완료] 변경된 비밀번호로 로그인 해주세요!")
+        return redirect(url_for('login'))
+    else:
+        flash("비밀번호가 일치하지 않습니다. 다시 입력해주세요!")
+        return render_template("find_pw.html", id=user_id)
 
 
 if __name__ == "__main__":

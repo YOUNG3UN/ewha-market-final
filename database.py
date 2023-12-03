@@ -49,7 +49,6 @@ class DBhandler:
         }
         if self.user_duplicate_check(str(data['username'])):
             self.db.child("user").push(user_info)
-            print(data)
             return True
         else:
             return False
@@ -57,7 +56,6 @@ class DBhandler:
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
 
-        print("users###", users.val())
         if str(users.val()) == "None":
             return True
         else:
@@ -138,7 +136,7 @@ class DBhandler:
                     if item_info:
                         item_info['key'] = item_id
                         wishlist_items.append(item_info)
-
+        
         return wishlist_items
     
     def get_my_products(self, writer_id):
@@ -168,3 +166,22 @@ class DBhandler:
                         myreview_items.append(review_info)
 
         return myreview_items
+
+    def check_user(self, user_id, user_email):
+        users = self.db.child("user").get()
+
+        for res in users.each():
+            value = res.val()
+            if value['id'] == user_id:
+                if value['email'] == user_email:
+                    return True
+        return False
+        
+    def change_password(self, user_id, user_pw):
+        users = self.db.child("user").get()
+        for res in users.each():
+            value = res.val()
+            if value['id'] == user_id:
+                key = res.key()
+                self.db.child("user").child(key).update({'pw': user_pw})
+                break

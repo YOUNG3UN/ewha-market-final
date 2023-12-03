@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="../static/find_pw.css" />
+</head>
+
+<body>
+    <div class="title">
+        <a href="/home"><p>이화마켓</p></a>
+    </div>
+    <div>
+        {% with mesg = get_flashed_messages() %}
+        {% if mesg !=[] %}
+            <script>alert("{{ mesg[0] }}")</script>
+        {% endif %}
+        {% endwith %}
+
+        
+        {% if id %}
+        <form method="post" action="/reset_password/{{id}}">
+            <div class="resetPassword">
+                <div class="guide">
+                    <h1>비밀번호 재설정</h1>
+                    <p>내 아이디: {{id}}</p>
+                <div>
+                <div class="newPassword">
+                    <div class="newPwInput">
+                        <input type="password" name="pw" placeholder="새 비밀번호 입력" class="checkPw">
+                        <input type="password" name="confirm_pw" placeholder="새 비밀번호 확인" class="checkConfirmPw">
+                    </div>
+                    <div class="changePwButton">
+                        <input type="submit" value="비밀번호 변경">
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <form method="post" action="/find_password">
+            <div class="findPassword">
+                <div class="guide">
+                    <h1>비밀번호 찾기</h1>
+                    <p>비밀번호는 가입한 아이디, 이메일을 통해 찾으실 수 있습니다.</p>
+                </div>
+                <div class="checkUser">
+                    <div class="userInput">
+                        <input type="text" name="id" placeholder="아이디" class="checkId">
+                        <input type="email" name="email" placeholder="이메일" class="checkEmail">
+                    </div>
+                    <div class="checkUserButton">
+                        <input type="submit" value="확인">
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</body>
+
+</html>
