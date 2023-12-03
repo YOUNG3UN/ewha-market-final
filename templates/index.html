@@ -143,8 +143,12 @@
   {% endif %}
 
   <span class="post_product">
-    <a href="/products_insert">+ 상품 등록</a>
-  </span>
+    {% if session['id'] %}
+        <a href="/products_insert">+ 상품 등록</a>
+    {% else %}
+        <a href="#" onclick="alert('로그인이 필요합니다.');">+ 상품 등록</a>
+    {% endif %}
+</span>
 </body>
 
 </html>
