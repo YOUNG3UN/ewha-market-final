@@ -7,9 +7,9 @@
   <title>상품 세부 화면</title>
   <link rel="stylesheet" type="text/css" href="../static/product_detail.css" />
   <script>
-      function redirectToReview(url) {
-        window.location.href = url;
-      }
+    function redirectToReview(url) {
+      window.location.href = url;
+    }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -27,14 +27,14 @@
           if (my_heart['interested'] == 'Y') {
             $("#heart").removeClass("fa-heart-o");
             $("#heart").addClass("fa-heart");
-            $("#heart").css("color","red");
-            $(".likeBtn").attr("onclick","unlike()");
+            $("#heart").css("color", "red");
+            $(".likeBtn").attr("onclick", "unlike()");
           }
           else {
             $("#heart").removeClass("fa-heart");
             $("#heart").addClass("fa-heart-o");
-            $("#heart").css("color","#5a5a5a");
-            $(".likeBtn").attr("onclick","like()");
+            $("#heart").css("color", "#5a5a5a");
+            $(".likeBtn").attr("onclick", "like()");
           }
         }
       });
@@ -44,7 +44,7 @@
         type: 'POST',
         url: '/like/{{key}}/',
         data: {
-          interested : "Y"
+          interested: "Y"
         },
         success: function (response) {
           alert(response['msg']);
@@ -66,12 +66,12 @@
       });
     }
     "{% if session['id'] %}"
-      $(document).ready(function() {
-        showHeart();
-      });
+    $(document).ready(function () {
+      showHeart();
+    });
     "{% endif %}"
   </script>
-  
+
 
   <div class="header">
     <div class="logo">
@@ -83,9 +83,17 @@
       |
       <li><a href="/review">리뷰 조회</a></li>
       |
+      {% if session['id'] %}
       <li><a href="/mp_product">My Page</a></li>
-      |
+      | <li>
+        <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+      </li>
+      <script>
+
+      </script>
+      {% else %}
       <li><a href="/login">로그인</a></li>
+      {% endif %}
     </ul>
   </div>
   <div class="divider"></div>
@@ -99,8 +107,8 @@
           <i class="fa fa-heart-o" id="heart"></i> 좋아요
         </button>
         <button class="reviewBtn"
-                onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
-            리뷰 작성하기
+          onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
+          리뷰 작성하기
         </button>
       </div>
     </div>
@@ -130,7 +138,7 @@
         </div>
       </div>
       <hr>
-        <div class="goodsExplain">
+      <div class="goodsExplain">
         <div class="goodsExplainTitle">상품 설명</div>
         <div class="goodsinfo">{{ product.content }}</div>
       </div>
