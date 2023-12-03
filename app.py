@@ -117,16 +117,26 @@ def join():
 def register_user():
     data = request.form
     pw = request.form['password']
+    confirm_pw = request.form['confirm-password']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+
+    if pw != confirm_pw:
+        flash("비밀번호가 일치하지 않습니다!")
+        return redirect(url_for('join'))
+
+    if DB.find_user(data['username']):
+        flash("이미 존재하는 아이디입니다!")
+        return redirect(url_for('join'))
+
     if DB.insert_user(data, pw_hash):
         return render_template("login.html")
     else:
-        flash("이미 존재하는 아이디입니다!")
-        return render_template("join.html")
-
+        flash("회원가입에 실패했습니다. 다시 시도해주세요.")
+        return redirect(url_for('join'))
+    
 @application.route("/mp_product")
 def mp_product():
-    return render_template("mp_product.html")
+    return redirect(url_for('my_product_a'))
 
 @application.route("/mp_review")
 def mp_review():
@@ -157,7 +167,18 @@ def wish_list():
     item_counts = len(products)
     products = products[start_idx:end_idx]
 
-    print("Retrieved wishlist items:", products)
+@application.route("/mp_product_a")
+def my_product_a():
+    if 'id' not in session:
+        flash("로그인이 필요합니다.")
+        return redirect(url_for('login'))
+    print(session['id'])
+    writer_id = session['id']
+    my_products = DB.get_my_products(writer_id) 
+    print("..................................................")
+    return render_template("mp_product.html", my_products=my_products)
+
+#     print("Retrieved wishlist items:", products)
 
     return render_template(
     "mp_wishlist.html",

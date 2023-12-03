@@ -140,3 +140,17 @@ class DBhandler:
                         wishlist_items.append(item_info)
 
         return wishlist_items
+    
+    def get_my_products(self, writer_id):
+        my_products = []
+        products = self.db.child("product").get().val()
+
+        for key, product_info in products.items():
+            if product_info.get("writerID") == writer_id:
+                product_info['key'] = key
+                my_products.append(product_info)
+        
+        print("My Products:", my_products)
+
+        return my_products
+    
