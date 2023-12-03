@@ -118,6 +118,10 @@ body {
   color: #5a5a5a;
 }
 
+.likeBtn:hover{
+  cursor: pointer;
+}
+
 .reviewBtn {
   background-color: #00664f;
   color: white;
