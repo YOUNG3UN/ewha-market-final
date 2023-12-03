@@ -22,6 +22,9 @@ body::after {
     z-index: -1;
 }
 
+.title a {
+    text-decoration: none;
+}
 
 .title p {
     color: #00664F;
