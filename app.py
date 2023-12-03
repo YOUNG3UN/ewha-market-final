@@ -169,6 +169,15 @@ def wish_list():
     item_counts = len(products)
     products = products[start_idx:end_idx]
 
+    return render_template(
+        "mp_wishlist.html",
+        products=products,
+        limit=per_page,
+        page=page,
+        page_count=int((item_counts / per_page) + 1),
+        total=item_counts
+    )
+
 @application.route("/mp_product_a")
 def my_product_a():
     if 'id' not in session:
