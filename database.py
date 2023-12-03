@@ -139,6 +139,34 @@ class DBhandler:
         
         return wishlist_items
     
+    def get_my_products(self, writer_id):
+        my_products = []
+        products = self.db.child("product").get().val()
+
+        for key, product_info in products.items():
+            if product_info.get("writerID") == writer_id:
+                product_info['key'] = key
+                my_products.append(product_info)
+        
+        print("My Products:", my_products)
+
+        return my_products
+      
+    def get_myreview_items(self, user_id):
+        myreview_items = []
+        user_reviews = self.db.child("review").get().val()
+
+        if user_reviews:
+            for item_id, item_details in user_reviews.items():
+                writer_id = item_details.get("writerID")
+                if writer_id == user_id:
+                    review_info = self.db.child("review").child(item_id).get().val()
+                    if review_info:
+                        review_info['key'] = item_id
+                        myreview_items.append(review_info)
+
+        return myreview_items
+
     def check_user(self, user_id, user_email):
         users = self.db.child("user").get()
 

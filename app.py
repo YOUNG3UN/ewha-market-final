@@ -128,10 +128,6 @@ def register_user():
 def mp_product():
     return render_template("mp_product.html")
 
-@application.route("/mp_review")
-def mp_review():
-    return render_template("mp_review.html")
-
 @application.route('/show_heart/<key>/', methods=['GET'])
 def show_heart(key):
     my_heart = DB.get_heart_byname(session['id'],key)
@@ -167,6 +163,50 @@ def wish_list():
     page_count=int((item_counts / per_page) + 1),
     total=item_counts
 )
+
+@application.route("/mp_product_a")
+def my_product_a():
+    if 'id' not in session:
+        flash("로그인이 필요합니다.")
+        return redirect(url_for('login'))
+    print(session['id'])
+    writer_id = session['id']
+    my_products = DB.get_my_products(writer_id) 
+    print("..................................................")
+    return render_template("mp_product.html", my_products=my_products)
+
+#     print("Retrieved wishlist items:", products)
+
+    return render_template(
+    "mp_wishlist.html",
+    products = products,
+    limit=per_page,
+    page=page,
+    page_count=int((item_counts / per_page) + 1),
+    total=item_counts
+)
+
+@application.route("/mp_review", methods=['GET'])
+def mp_review():
+     page = request.args.get("page", 0, type=int)
+     per_page = 6 # 페이지당 상품 개수
+     start_idx = per_page * page
+     end_idx = per_page * (page + 1)
+     products = DB.get_myreview_items(session.get('id', ''))
+     item_counts = len(products)
+     products = products[start_idx:end_idx]
+
+     print("Retrieved wishlist items:", products)
+
+     return render_template(
+     "mp_review.html",
+     products = products,
+     limit=per_page,
+     page=page,
+     page_count=int((item_counts / per_page) + 1),
+     total=item_counts
+ )
+
 
 @application.route("/find_pw")
 def find_pw():
