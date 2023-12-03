@@ -191,28 +191,6 @@ def my_product_a():
     total=item_counts
 )
 
-@application.route("/mp_product_a")
-def my_product_a():
-    if 'id' not in session:
-        flash("로그인이 필요합니다.")
-        return redirect(url_for('login'))
-    print(session['id'])
-    writer_id = session['id']
-    my_products = DB.get_my_products(writer_id) 
-    print("..................................................")
-    return render_template("mp_product.html", my_products=my_products)
-
-#     print("Retrieved wishlist items:", products)
-
-    return render_template(
-    "mp_wishlist.html",
-    products = products,
-    limit=per_page,
-    page=page,
-    page_count=int((item_counts / per_page) + 1),
-    total=item_counts
-)
-
 @application.route("/mp_review", methods=['GET'])
 def mp_review():
      page = request.args.get("page", 0, type=int)
