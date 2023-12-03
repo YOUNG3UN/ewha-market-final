@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> // 여기 link, script 중복되는 것들 나중에 수정해야할듯
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 세부 화면</title>
@@ -106,7 +106,6 @@
 
   <div class="row">
     <div class="column left">
-      <!-- <div class="fakeimg" style="width: 400px; height: 400px">상품 사진</div> -->
       <img class="product-image" src="../static/image/{{ product.img_path }}" style="width: 400px; height: 400px">
       <div class="buttons">
         <button class="likeBtn">
@@ -121,7 +120,6 @@
     <div class="column middle">
       <div class="titleContainer">
         <div class="goodsName">{{ product.title }}</div>
-        <!-- <div class="goodsDate">X일 전</div> -->
       </div>
       <div class="goodsPrice">{{ product.price }}원</div>
       <hr>
@@ -150,12 +148,6 @@
       </div>
     </div>
     <div class="column right">
-      <div class="recentGoods">
-        <div class="recentGoodsTitle">최근 본 상품</div>
-        <div class="tempImg">상품 사진</div>
-        <div class="tempImg">상품 사진</div>
-        <div class="tempImg">상품 사진</div>
-      </div>
     </div>
   </div>
 </body>

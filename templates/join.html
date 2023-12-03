@@ -75,6 +75,31 @@
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var password = document.getElementById("password");
+            var confirmPassword = document.getElementById("confirm-password");
+            var submitButton = document.querySelector("input[type='submit']");
+            var messageElement = document.getElementById("password-mismatch-message");
+
+            confirmPassword.addEventListener("input", function () {
+                if (confirmPassword.value !== password.value) {
+                    messageElement.textContent = "비밀번호가 일치하지 않습니다!";
+                    submitButton.disabled = true;
+                } else {
+                    messageElement.textContent = "";
+                    submitButton.disabled = false;
+                }
+            });
+
+            document.querySelector("form").addEventListener("submit", function (event) {
+                if (confirmPassword.value !== password.value) {
+                    messageElement.textContent = "비밀번호가 일치하지 않습니다!";
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
