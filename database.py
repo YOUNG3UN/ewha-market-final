@@ -140,3 +140,19 @@ class DBhandler:
                         wishlist_items.append(item_info)
 
         return wishlist_items
+    
+
+    def get_myreview_items(self, user_id):
+        myreview_items = []
+        user_reviews = self.db.child("review").get().val()
+
+        if user_reviews:
+            for item_id, item_details in user_reviews.items():
+                writer_id = item_details.get("writerID")
+                if writer_id == user_id:
+                    review_info = self.db.child("review").child(item_id).get().val()
+                    if review_info:
+                        review_info['key'] = item_id
+                        myreview_items.append(review_info)
+
+        return myreview_items
