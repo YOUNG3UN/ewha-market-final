@@ -113,8 +113,8 @@ def login():
 
 @application.route("/login_confirm", methods=['POST'])
 def login_user():
-    id_=request.form['id']
-    pw=request.form['password']
+    id_ = request.form['id']
+    pw = request.form['password']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.find_user(id_,pw_hash):
         session['id']=id_
@@ -132,27 +132,31 @@ def logout_user():
 @application.route("/join")
 def join():
     return render_template("join.html")
-
 @application.route("/join_post", methods=['POST'])
 def register_user():
     data = request.form
-    pw = request.form['password']
-    confirm_pw = request.form['confirm-password']
+    pw = request.form.get('password') 
+    confirm_pw = request.form.get('confirm-password')  
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
 
     if pw != confirm_pw:
         flash("비밀번호가 일치하지 않습니다!")
         return redirect(url_for('join'))
 
-    if DB.find_user(data['username']):
+    id_ = request.form['username']
+
+    # 중복된 아이디인지 확인
+    if DB.find_user(id_,pw_hash):
         flash("이미 존재하는 아이디입니다!")
         return redirect(url_for('join'))
 
+    # 회원가입 처리
     if DB.insert_user(data, pw_hash):
         return render_template("login.html")
     else:
         flash("회원가입에 실패했습니다. 다시 시도해주세요.")
         return redirect(url_for('join'))
+
     
 @application.route("/mp_product")
 def mp_product():
