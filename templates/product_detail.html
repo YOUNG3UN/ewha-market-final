@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> // 여기 link, script 중복되는 것들 나중에 수정해야할듯
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 세부 화면</title>
   <link rel="stylesheet" type="text/css" href="../static/product_detail.css" />
   <script>
-      function redirectToReview(url) {
-        window.location.href = url;
-      }
+    function redirectToReview(url) {
+      window.location.href = url;
+    }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -27,14 +27,14 @@
           if (my_heart['interested'] == 'Y') {
             $("#heart").removeClass("fa-heart-o");
             $("#heart").addClass("fa-heart");
-            $("#heart").css("color","red");
-            $(".likeBtn").attr("onclick","unlike()");
+            $("#heart").css("color", "red");
+            $(".likeBtn").attr("onclick", "unlike()");
           }
           else {
             $("#heart").removeClass("fa-heart");
             $("#heart").addClass("fa-heart-o");
-            $("#heart").css("color","#5a5a5a");
-            $(".likeBtn").attr("onclick","like()");
+            $("#heart").css("color", "#5a5a5a");
+            $(".likeBtn").attr("onclick", "like()");
           }
         }
       });
@@ -44,7 +44,7 @@
         type: 'POST',
         url: '/like/{{key}}/',
         data: {
-          interested : "Y"
+          interested: "Y"
         },
         success: function (response) {
           alert(response['msg']);
@@ -65,49 +65,61 @@
         }
       });
     }
-    "{% if session['id'] %}"
-      $(document).ready(function() {
-        showHeart();
+    $(document).ready(function () {
+      "{% if session['id'] %}"
+      showHeart();
+      "{% else %}"
+      $('.likeBtn').on('click', function () {
+        alert('로그인이 필요합니다.');
       });
-    "{% endif %}"
+      "{% endif %}"
+    });
   </script>
-  
+
 
   <div class="header">
     <div class="logo">
-      <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-      <p>이화 마켓</p>
+      <a href="/home">
+        <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
+        <p>이화 마켓</p>
+      </a>
     </div>
     <ul class="nav">
       <li><a href="/home">상품 조회</a></li>
       |
       <li><a href="/review">리뷰 조회</a></li>
       |
+      {% if session['id'] %}
       <li><a href="/mp_product">My Page</a></li>
-      |
+      | <li>
+        <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+      </li>
+      <script>
+
+      </script>
+      {% else %}
       <li><a href="/login">로그인</a></li>
+      {% endif %}
     </ul>
   </div>
   <div class="divider"></div>
 
   <div class="row">
     <div class="column left">
-      <!-- <div class="fakeimg" style="width: 400px; height: 400px">상품 사진</div> -->
       <img class="product-image" src="../static/image/{{ product.img_path }}" style="width: 400px; height: 400px">
       <div class="buttons">
         <button class="likeBtn">
           <i class="fa fa-heart-o" id="heart"></i> 좋아요
         </button>
         <button class="reviewBtn"
-                onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
-            리뷰 작성하기
+          onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
+          리뷰 작성하기
         </button>
       </div>
     </div>
     <div class="column middle">
       <div class="titleContainer">
         <div class="goodsName">{{ product.title }}</div>
-        <!-- <div class="goodsDate">X일 전</div> -->
       </div>
       <div class="goodsPrice">{{ product.price }}원</div>
       <hr>
@@ -130,18 +142,12 @@
         </div>
       </div>
       <hr>
-        <div class="goodsExplain">
+      <div class="goodsExplain">
         <div class="goodsExplainTitle">상품 설명</div>
         <div class="goodsinfo">{{ product.content }}</div>
       </div>
     </div>
     <div class="column right">
-      <div class="recentGoods">
-        <div class="recentGoodsTitle">최근 본 상품</div>
-        <div class="tempImg">상품 사진</div>
-        <div class="tempImg">상품 사진</div>
-        <div class="tempImg">상품 사진</div>
-      </div>
     </div>
   </div>
 </body>
