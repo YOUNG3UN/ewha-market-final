@@ -68,7 +68,19 @@
       "{% endfor %}"
       "{% endif %}"
     </script>
-    
+      
+     {% block section %}
+      <script>
+        $(document).ready(function () {
+        $('#sort option:contains("{{sort}}")').prop("selected", true);
+        });
+         function changeSort() {
+          var sortValue = document.getElementById("sort").value;
+          var currentPage = new URL(window.location.href).searchParams.get("page");
+          window.location.href = sortValue + "&page=" + currentPage;
+        }
+      </script>
+     {% endblock %}
 
     <div class="header">
       <div class="logo">
@@ -98,14 +110,16 @@
       <h2>이화 마켓에서 원하는 상품을 찾아보세요!</h2>
     </div>
 
+      
+      
     <div class="dropdown">
-      <select>
-        <option value="최신순">최신순</option>
-        <option value="가격순">가격순</option>
-        <option value="인기순">인기순</option>
+      <select id="sort" name="sort" onchange="changeSort()">
+        <option value="{{ url_for('view_list', sort='old') }}" {% if sort == 'old' %}selected{% endif %}>오래된 순</option>
+        <option value="{{ url_for('view_list', sort='price') }}" {% if sort == 'price' %}selected{% endif %}>가격 낮은 순</option>
+        <option value="{{ url_for('view_list', sort='price_high') }}" {% if sort == 'price_high' %}selected{% endif %}>가격 높은 순</option>
       </select>
     </div>
-    
+      
     {% if total > 0 %}
     <div class="products">
       {% for key, value in products %}
@@ -142,5 +156,6 @@
     <span class="post_product">
       <a href="/products_insert">+ 상품 등록</a>
     </span>
+      
   </body>
 </html>
