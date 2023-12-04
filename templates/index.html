@@ -132,6 +132,10 @@
       <i class="fa fa-heart-o heart-icon" id="heart-{{key}}" style="font-size:25px"></i>
     </div>
     {% endfor %}
+    {% if total % 3 == 2 and page == page_count - 1%}
+    <div class="product-box" id="hidden">
+    </div>
+    {% endif %}
   </div>
   <div class="pagination">
     <ul>

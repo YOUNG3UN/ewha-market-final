@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이화마켓 - 리뷰 조회</title>
-    <link rel="stylesheet" href="../static/review.css" />
-  </head>
 
-  <body>
-    <div class="header">
-        <div class="logo">
-            <a href="/home">
-                <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-                <p>이화 마켓</p>
-            </a>
-        </div>
-        <ul class="nav">
-            <li><a href="/home">상품 조회</a></li>
-            |
-            <li><a href="/review">리뷰 조회</a></li>
-            |
-            {% if session['id'] %}
-            <li><a href="/mp_product">My Page</a></li>
-            | <li>
-                <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
-            </li>
-            <script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이화마켓 - 리뷰 조회</title>
+  <link rel="stylesheet" href="../static/review.css" />
+</head>
 
-            </script>
-            {% else %}
-            <li><a href="/login">로그인</a></li>
-            {% endif %}
-        </ul>
+<body>
+  <div class="header">
+    <div class="logo">
+      <a href="/home">
+        <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
+        <p>이화 마켓</p>
+      </a>
     </div>
-    <div class="banner">
-      <h2>이화 마켓에서 원하는 상품의 리뷰를 찾아보세요!</h2>
-    </div>
+    <ul class="nav">
+      <li><a href="/home">상품 조회</a></li>
+      |
+      <li><a href="/review">리뷰 조회</a></li>
+      |
+      {% if session['id'] %}
+      <li><a href="/mp_product">My Page</a></li>
+      | <li>
+        <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+      </li>
+      <script>
 
-    {% if total > 0 %}
-    <div class="review_list">
-      {% for key, value in reviews %}
-      <div class="review_item">
-        <a onclick="location.href='/review/{{key}}';">
-          <img class="review_img" src="static/image/{{value.img_path}}" />
-          <div class="review_label">
-            <div class="review_name">
-              <h3>{{value['title']}}</h3>
-            </div>
+      </script>
+      {% else %}
+      <li><a href="/login">로그인</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="banner">
+    <h2>이화 마켓에서 원하는 상품의 리뷰를 찾아보세요!</h2>
+  </div>
+
+  {% if total > 0 %}
+  <div class="review_list">
+    {% for key, value in reviews %}
+    <div class="review_item">
+      <a onclick="location.href='/review/{{key}}';">
+        <img class="review_img" src="static/image/{{value.img_path}}" />
+        <div class="review_label">
+          <div class="review_name">
+            <h3>{{value['title']}}</h3>
           </div>
-        </a>
-      </div>
-      {% endfor %}
+        </div>
+      </a>
     </div>
-    <div class="pagination">
-      <ul>
-        <li>
-          {% for i in range(page_count) %}
-          <a href="{{url_for('view_review', page=i)}}" color="black">{{i}}</a>
-          {% endfor %}
-        </li>
-      </ul>
+    {% endfor %}
+    {% if total % 3 == 2 and page == page_count - 1%}
+    <div class="product-box" id="hidden">
     </div>
-    {% else %}
-    <p>등록된 상품이 없습니다.</p>
     {% endif %}
+  </div>
+  <div class="pagination">
+    <ul>
+      <li>
+        {% for i in range(page_count) %}
+        <a href="{{url_for('view_review', page=i)}}" color="black">{{i}}</a>
+        {% endfor %}
+      </li>
+    </ul>
+  </div>
+  {% else %}
+  <p>등록된 상품이 없습니다.</p>
+  {% endif %}
 
-    <!-- <span class="post_review">
+  <!-- <span class="post_review">
         <a href="/reg_review">+ 리뷰 등록</a>
     </span> -->
-  </body>
+</body>
+
 </html>
