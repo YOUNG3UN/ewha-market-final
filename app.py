@@ -16,20 +16,34 @@ def hello():
 @application.route("/home", methods=['GET'])
 def view_list():
     page = request.args.get("page", 0, type=int)
-    per_page = 6 # 페이지당 상품 개수
+    per_page = 6  # 페이지당 상품 개수
     start_idx = per_page * page
     end_idx = per_page * (page + 1)
     products = DB.get_products()
     item_counts = len(products)
+    sort = request.args.get("sort", "old")
+    
+    if sort == "price":
+        # 숫자로 변환하여 정렬
+        sorted_products = sorted(products.items(), key=lambda x: int(x[1]['price']), reverse=False)
+        products = dict(sorted_products)
+        
+    if sort == "price_high":
+        # 숫자로 변환하여 정렬
+        sorted_products = sorted(products.items(), key=lambda x: int(x[1]['price']), reverse=True)
+        products = dict(sorted_products)
+    
+    # 페이징을 여기서 적용
     products = dict(list(products.items())[start_idx:end_idx])
-
+    
     return render_template(
         "index.html",
-        products = products.items(),
-        limit = per_page,
-        page = page,
-        page_count = int((item_counts / per_page) + 1),
-        total = item_counts)
+        products=products.items(),
+        limit=per_page,
+        page=page,
+        page_count=int((item_counts / per_page) + 1),
+        total=item_counts,
+        sort=sort)
 
 @application.route('/products/<key>')
 def product_detail(key):
