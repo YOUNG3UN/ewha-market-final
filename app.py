@@ -179,20 +179,12 @@ def unlike(key):
 
 @application.route("/mp_wishlist", methods=['GET'])
 def wish_list():
-    page = request.args.get("page", 0, type=int)
-    per_page = 6 # 페이지당 상품 개수
-    start_idx = per_page * page
-    end_idx = per_page * (page + 1)
     products = DB.get_wishlist_items(session.get('id', ''))
     item_counts = len(products)
-    products = products[start_idx:end_idx]
 
     return render_template(
         "mp_wishlist.html",
         products=products,
-        limit=per_page,
-        page=page,
-        page_count=int((item_counts / per_page) + 1),
         total=item_counts
     )
 
@@ -220,23 +212,13 @@ def my_product_a():
 
 @application.route("/mp_review", methods=['GET'])
 def mp_review():
-     page = request.args.get("page", 0, type=int)
-     per_page = 6 # 페이지당 상품 개수
-     start_idx = per_page * page
-     end_idx = per_page * (page + 1)
      products = DB.get_myreview_items(session.get('id', ''))
      item_counts = len(products)
-     products = products[start_idx:end_idx]
-
-     print("Retrieved wishlist items:", products)
 
      return render_template(
-     "mp_review.html",
-     products = products,
-     limit=per_page,
-     page=page,
-     page_count=int((item_counts / per_page) + 1),
-     total=item_counts
+         "mp_review.html",
+         products = products,
+         total=item_counts
  )
 
 
