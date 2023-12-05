@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이화마켓 - 마이페이지 - 리뷰</title>
-    <link rel="stylesheet" href="../static/mp_review.css" />
-  </head>
 
-  <body>
-    <div class="header">
-        <div class="logo">
-            <a href="/home">
-                <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
-                <p>이화 마켓</p>
-            </a>
-        </div>
-        <ul class="nav">
-            <li><a href="/home"> HOME </a></li>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이화마켓 - 마이페이지 - 리뷰</title>
+  <link rel="stylesheet" href="../static/mp_review.css" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <a href="/home">
+        <img src="https://github.com/nzeong/Spring-study/assets/121355994/3e86b129-fe60-41d1-a71b-f5f8c2127b27">
+        <p>이화 마켓</p>
+      </a>
     </div>
-    <div class="divider"></div>
+    <ul class="nav">
+      <li><a href="/home"> HOME </a></li>
+      | <li>
+        <a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> 로그아웃</a>
+      </li>
+    </ul>
+  </div>
+  <div class="divider"></div>
 
-    <section class="review">
-      {% for item in products %}
-      <div class="product-box">
-        <a onclick="location.href='/review/{{item.key}}';">
-          <img class="product-image" src="static/image/{{item.img_path}}" />
-          <div class="product-label">
-            <div class="product-name">{{item.title}}</div>
-            <span class="rating">★{{item.rate}}</span>
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-    </section>
+  <section class="review">
+    {% for item in products %}
+    <div class="product-box">
+      <a onclick="location.href='/review/{{item.key}}';">
+        <img class="product-image" src="static/image/{{item.img_path}}" />
+        <div class="product-label">
+          <div class="product-name">{{item.title}}</div>
+          <span class="rating">★{{item.rate}}</span>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </section>
 
-    <aside class="navigation">
-      <div class="bar">
-        <p>마이페이지</p>
-      </div>
-      <div class="navi1">
-        <p><a href="/mp_product">상품 판매 내역</a></p>
-      </div>
-      <div class="navi2">
-        <p><a href="/mp_review">리뷰</a></p>
-      </div>
-      <div class="navi3">
-        <p><a href="/mp_wishlist">위시리스트</a></p>
-      </div>
-    </aside>
-  </body>
+  <aside class="navigation">
+    <div class="bar">
+      <p>마이페이지</p>
+    </div>
+    <div class="navi1">
+      <p><a href="/mp_product">상품 판매 내역</a></p>
+    </div>
+    <div class="navi2">
+      <p><a href="/mp_review">리뷰</a></p>
+    </div>
+    <div class="navi3">
+      <p><a href="/mp_wishlist">위시리스트</a></p>
+    </div>
+  </aside>
+</body>
+
 </html>
