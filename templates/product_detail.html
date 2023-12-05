@@ -111,10 +111,14 @@
         <button class="likeBtn">
           <i class="fa fa-heart-o" id="heart"></i> 좋아요
         </button>
+        {% if session['id'] %}
         <button class="reviewBtn"
           onclick="redirectToReview('{{ url_for('reg_review', category=product.category, writerID=product.writerID) }}')">
           리뷰 작성하기
         </button>
+        {% else %}
+        <button class="reviewBtn" onclick="alert('로그인이 필요합니다.');">리뷰 작성하기</button>
+        {% endif %}
       </div>
     </div>
     <div class="column middle">

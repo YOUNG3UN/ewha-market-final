@@ -37,7 +37,8 @@
     </div>
     <div class="divider"></div>
 
-    <form name="reviewform" id="reviewform" action="/reg_review" method="post" enctype="multipart/form-data">
+    <form name="reviewform" id="reviewform" action="/reg_review" method="post" enctype="multipart/form-data"
+        onsubmit="return checkFile()">
         <div class="info-rate-container">
             <div class="info">
                 <input type="hidden" name="writerID" value="{{session['id']}}">
@@ -56,7 +57,7 @@
             </div>
         </div>
         <div class="title">
-            <input type="text" class="review_title" name="title" placeholder="제목">
+            <input type="text" class="review_title" name="title" placeholder="제목" required>
             <label for="file">+</label>
             <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, image/*">
         </div>
@@ -68,6 +69,26 @@
             <button type="submit" class="save">저장</button>
         </div>
     </form>
+    <script>
+        function checkFile() {
+            var fileInput = document.getElementById('file');
+            if (fileInput.files.length === 0) {
+                alert('이미지를 추가해주세요.');
+                return false;
+            }
+            return checkRating();
+        }
+
+        function checkRating() {
+            var ratingInputs = document.getElementsByName('rate');
+            var isRatingChecked = Array.from(ratingInputs).some(input => input.checked);
+            if (!isRatingChecked) {
+                alert('별점을 선택해주세요.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 
 </html>
