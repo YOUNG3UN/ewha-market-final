@@ -23,6 +23,10 @@ def view_list():
     products = DB.get_products()
     item_counts = len(products)
     sort = request.args.get("sort", "old")
+
+    page_count = int(item_counts / per_page)
+    if item_counts % per_page != 0:
+        page_count += 1
     
     if sort == "price":
         # 숫자로 변환하여 정렬
@@ -42,7 +46,7 @@ def view_list():
         products=products.items(),
         limit=per_page,
         page=page,
-        page_count=int((item_counts / per_page) + 1),
+        page_count=page_count,
         total=item_counts,
         sort=sort)
 
@@ -73,12 +77,16 @@ def view_review():
     item_counts = len(reviews)
     reviews = dict(list(reviews.items())[start_idx:end_idx])
 
+    page_count = int(item_counts / per_page)
+    if item_counts % per_page != 0:
+        page_count += 1
+
     return render_template(
         "review.html",
         reviews = reviews.items(),
         limit = per_page,
         page = page,
-        page_count = int((item_counts/per_page) + 1),
+        page_count = page_count,
         total = item_counts)
 
 @application.route("/reg_review", methods=['GET', 'POST'])
