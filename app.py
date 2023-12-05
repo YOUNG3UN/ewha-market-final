@@ -7,6 +7,7 @@ application = Flask(__name__)
 application.config["SECRET_KEY"] = "helloosp"
 
 DB = DBhandler()
+id_duplicate = False
 
 @application.route("/")
 def hello():
@@ -16,20 +17,34 @@ def hello():
 @application.route("/home", methods=['GET'])
 def view_list():
     page = request.args.get("page", 0, type=int)
-    per_page = 6 # 페이지당 상품 개수
+    per_page = 6  # 페이지당 상품 개수
     start_idx = per_page * page
     end_idx = per_page * (page + 1)
     products = DB.get_products()
     item_counts = len(products)
+    sort = request.args.get("sort", "old")
+    
+    if sort == "price":
+        # 숫자로 변환하여 정렬
+        sorted_products = sorted(products.items(), key=lambda x: int(x[1]['price']), reverse=False)
+        products = dict(sorted_products)
+        
+    if sort == "price_high":
+        # 숫자로 변환하여 정렬
+        sorted_products = sorted(products.items(), key=lambda x: int(x[1]['price']), reverse=True)
+        products = dict(sorted_products)
+    
+    # 페이징을 여기서 적용
     products = dict(list(products.items())[start_idx:end_idx])
-
+    
     return render_template(
         "index.html",
-        products = products.items(),
-        limit = per_page,
-        page = page,
-        page_count = int((item_counts / per_page) + 1),
-        total = item_counts)
+        products=products.items(),
+        limit=per_page,
+        page=page,
+        page_count=int((item_counts / per_page) + 1),
+        total=item_counts,
+        sort=sort)
 
 @application.route('/products/<key>')
 def product_detail(key):
@@ -99,8 +114,8 @@ def login():
 
 @application.route("/login_confirm", methods=['POST'])
 def login_user():
-    id_=request.form['id']
-    pw=request.form['password']
+    id_ = request.form['id']
+    pw = request.form['password']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     if DB.find_user(id_,pw_hash):
         session['id']=id_
@@ -118,27 +133,28 @@ def logout_user():
 @application.route("/join")
 def join():
     return render_template("join.html")
-
 @application.route("/join_post", methods=['POST'])
 def register_user():
     data = request.form
-    pw = request.form['password']
-    confirm_pw = request.form['confirm-password']
+    pw = request.form.get('password') 
+    confirm_pw = request.form.get('confirm-password')  
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    id = request.form['username']
 
-    if pw != confirm_pw:
-        flash("비밀번호가 일치하지 않습니다!")
-        return redirect(url_for('join'))
-
-    if DB.find_user(data['username']):
+    # 중복된 아이디인지 확인
+    if not DB.user_duplicate_check(id):
         flash("이미 존재하는 아이디입니다!")
         return redirect(url_for('join'))
 
-    if DB.insert_user(data, pw_hash):
-        return render_template("login.html")
-    else:
-        flash("회원가입에 실패했습니다. 다시 시도해주세요.")
+    # 비밀번호 확인
+    elif pw != confirm_pw:
+        flash("비밀번호가 일치하지 않습니다!")
         return redirect(url_for('join'))
+
+    # 회원가입 처리
+    else:
+        DB.insert_user(data, pw_hash)
+        return render_template("login.html")
     
 @application.route("/mp_product")
 def mp_product():
@@ -161,20 +177,12 @@ def unlike(key):
 
 @application.route("/mp_wishlist", methods=['GET'])
 def wish_list():
-    page = request.args.get("page", 0, type=int)
-    per_page = 6 # 페이지당 상품 개수
-    start_idx = per_page * page
-    end_idx = per_page * (page + 1)
     products = DB.get_wishlist_items(session.get('id', ''))
     item_counts = len(products)
-    products = products[start_idx:end_idx]
 
     return render_template(
         "mp_wishlist.html",
         products=products,
-        limit=per_page,
-        page=page,
-        page_count=int((item_counts / per_page) + 1),
         total=item_counts
     )
 
@@ -202,23 +210,13 @@ def my_product_a():
 
 @application.route("/mp_review", methods=['GET'])
 def mp_review():
-     page = request.args.get("page", 0, type=int)
-     per_page = 6 # 페이지당 상품 개수
-     start_idx = per_page * page
-     end_idx = per_page * (page + 1)
      products = DB.get_myreview_items(session.get('id', ''))
      item_counts = len(products)
-     products = products[start_idx:end_idx]
-
-     print("Retrieved wishlist items:", products)
 
      return render_template(
-     "mp_review.html",
-     products = products,
-     limit=per_page,
-     page=page,
-     page_count=int((item_counts / per_page) + 1),
-     total=item_counts
+         "mp_review.html",
+         products = products,
+         total=item_counts
  )
 
 
