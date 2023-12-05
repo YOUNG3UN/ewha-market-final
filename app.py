@@ -7,6 +7,7 @@ application = Flask(__name__)
 application.config["SECRET_KEY"] = "helloosp"
 
 DB = DBhandler()
+id_duplicate = False
 
 @application.route("/")
 def hello():
@@ -138,25 +139,22 @@ def register_user():
     pw = request.form.get('password') 
     confirm_pw = request.form.get('confirm-password')  
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-
-    if pw != confirm_pw:
-        flash("비밀번호가 일치하지 않습니다!")
-        return redirect(url_for('join'))
-
-    id_ = request.form['username']
+    id = request.form['username']
 
     # 중복된 아이디인지 확인
-    if DB.find_user(id_,pw_hash):
+    if not DB.user_duplicate_check(id):
         flash("이미 존재하는 아이디입니다!")
         return redirect(url_for('join'))
 
-    # 회원가입 처리
-    if DB.insert_user(data, pw_hash):
-        return render_template("login.html")
-    else:
-        flash("회원가입에 실패했습니다. 다시 시도해주세요.")
+    # 비밀번호 확인
+    elif pw != confirm_pw:
+        flash("비밀번호가 일치하지 않습니다!")
         return redirect(url_for('join'))
 
+    # 회원가입 처리
+    else:
+        DB.insert_user(data, pw_hash)
+        return render_template("login.html")
     
 @application.route("/mp_product")
 def mp_product():

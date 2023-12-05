@@ -21,7 +21,6 @@ class DBhandler:
             "writerID": data['writerID'],
             "img_path": img_path
         }
-
         self.db.child("product").push(product_info)
         return True
 
@@ -47,11 +46,7 @@ class DBhandler:
             "phone": data['phone'],
             "birthdate": data['birthdate']
         }
-        if self.user_duplicate_check(str(data['username'])):
-            self.db.child("user").push(user_info)
-            return True
-        else:
-            return False
+        self.db.child("user").push(user_info)
 
     def user_duplicate_check(self, id_string):
         users = self.db.child("user").get()
@@ -73,7 +68,6 @@ class DBhandler:
             if value['id'] == id_ and value['pw'] == pw_:
                 return True
         return False
-    
 
     def get_products(self):
         products = self.db.child("product").get().val()
