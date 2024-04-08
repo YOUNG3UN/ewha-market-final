@@ -8,7 +8,7 @@
 ## Team Members
 |[김승언](https://github.com/seung-eon)| [김지원](https://github.com/geeoneee) |[이윤정](https://github.com/nzeong)|
 |------|---|---|
-|__[이하은](https://github.com/haeunia)__|__[조하은](https://github.com/haeun228)__|__[최영은](https://github.com/YOUNG3UN)__|
+|__[이하은](https://github.com/haeunia)__|__[조하은](https://github.com/haeun228)__|__[최영은](https://github.com/youngeun-0)__|
 
 ## 실행 명령어(Window)
 ```
